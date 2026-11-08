@@ -261,14 +261,15 @@
   const eio = x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
   const win = (t, a, b, fi, fo) => eo(io_(t, a, a + fi)) * (1 - eio(io_(t, b - fo, b)));
   const C = 'assets/concept/';
+  /* [file, alt, x, y, w, h, delay, drift, cutout] */
   const PHOTOS = [
-    ['terrace', 'A covered terrace by the pool', 120, 140, 660, 430, 0.3, 1],
-    ['tulips', 'White tulips on the table', 700, 360, 520, 390, 1.0, -0.6],
-    ['wildflowers', 'Wildflowers in a dark vase', 1180, 120, 300, 400, 1.7, 0.8],
-    ['poolside', 'Water and grass', 260, 620, 360, 250, 2.4, -1],
-    ['woven-chair', 'A woven armchair', 1260, 580, 240, 290, 3.1, 0.5]
+    ['dusk', 'A violet sky at dusk over trees', 130, 130, 620, 447, 0.3, 1],
+    ['meadow', 'Dried wildflowers in late light', 690, 410, 480, 386, 1.0, -0.6],
+    ['fig', 'Ripe figs, one cut open', 1200, 110, 320, 440, 1.7, 0.8],
+    ['bouquet', 'A bouquet of dried statice wrapped in paper', 470, 470, 186, 452, 2.6, 0.5, 1]
   ];
-  const PALETTE = [['#ebe3d6', 260, 760], ['#d6c2a4', 1350, 330], ['#c48f7f', 470, 300], ['#8b9072', 1300, 470], ['#5d3a47', 900, 560], ['#7b5034', 1380, 720]];
+  /* Colours picked from the photos above; x/y is where each one is "found". */
+  const PALETTE = [['#e3a079', 260, 545], ['#d8b08c', 560, 800], ['#b49ab8', 420, 230], ['#c65a5c', 1330, 330], ['#6a2f43', 1420, 200], ['#8c7652', 900, 640]];
   const SWATCHES = [
     ['oak-joinery', 'Oak joinery', 360, 470, 230, -8], ['white-oak', 'White oak floor', 520, 220, 300, -5],
     ['bronze', 'Brushed bronze', 780, 180, 280, 4], ['linen', 'Linen', 1040, 260, 260, -3],
@@ -289,19 +290,22 @@
   ];
   const DIMS = [['8.80', 800, 912, 25.4], ['6.40', 1350, 500, 25.6], ['Living', 1035, 520, 25.6], ['Suite', 540, 495, 25.8]];
   const CHAPTERS = [
-    [0, 8.4, 'Inspiration', 'It begins with what you love. Light on water, flowers on the table.'],
+    [0, 8.4, 'Inspiration', 'It begins with what you love. A ripe fig, a violet dusk, flowers in late light.'],
     [8.4, 14.4, 'Colour', 'The palette is drawn from what we found.'],
     [14.4, 20.6, 'Material', 'Oak, walnut, linen and cane, chosen by hand.'],
     [20.6, 26.6, 'Line', 'Pencil on paper, every wall to scale.'],
     [26.6, 30.2, 'Form', 'The room takes shape, in three dimensions.'],
     [30.2, 36, 'Home', 'And then, it is yours.']
   ];
-  const STROKE_PATHS = [
-    'M180 230 C520 200 900 270 1420 220', 'M200 340 C560 380 980 300 1400 350',
-    'M170 450 C600 420 1000 490 1430 440', 'M210 560 C540 600 960 520 1390 570',
-    'M180 670 C580 640 1020 710 1420 660', 'M220 780 C600 810 980 740 1380 790'
-  ];
-  const STROKE_SET = [[0, 78, .85, 0, 1], [.05, 7, .7, -50, .92], [.12, 11, .55, -36, .97], [.02, 5, .5, -22, .88], [.08, 9, .6, 30, .95], [.15, 5, .65, 44, .86], [.1, 12, .45, 54, .9]];
+  /* Where each colour dot comes to rest — the brush stroke starts exactly here. */
+  const DOT_END = PALETTE.map((_, i) => [180 + (i % 2) * 20, 200 + i * 110]);
+  /* Each stroke leaves its dot and sweeps right with a slight rise and a hand-drawn wobble. */
+  const STROKE_PATHS = DOT_END.map(([x, y], i) => {
+    const w = i % 2 ? 1 : -1;
+    return 'M' + x + ' ' + y + ' C' + (x + 360) + ' ' + (y - 34 + w * 22) + ' ' + (x + 760) + ' ' + (y - 62 - w * 22) + ' ' + (x + 1200) + ' ' + (y - 104);
+  });
+  /* [delay, width, opacity, offset across the stroke, length] — the bristles stay inside the dot's width. */
+  const STROKE_SET = [[0, 72, .85, 0, 1], [.05, 6, .7, -30, .92], [.12, 10, .55, -21, .97], [.02, 5, .5, -12, .88], [.08, 8, .6, 18, .95], [.15, 5, .65, 27, .86], [.1, 9, .45, 32, .9]];
   const SVGNS = 'http://www.w3.org/2000/svg';
 
   const mk = (tag, cls, css) => { const e = document.createElement(tag); if (cls) e.className = cls; if (css) e.style.cssText = css; stage.appendChild(e); return e; };
@@ -311,10 +315,10 @@
 
   const light = mk('div', 'f-abs f-light');
   const grid = mk('div', 'f-abs', 'inset:0;background-image:linear-gradient(rgba(59,55,52,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(59,55,52,.09) 1px,transparent 1px);background-size:40px 40px;opacity:0');
-  const photoEls = PHOTOS.map(([f, alt, x, y, w, h]) => { const e = mk('div', 'f-photo', box(x, y, w, h) + ';opacity:0'); pic(e, f, alt); return e; });
+  const photoEls = PHOTOS.map(([f, alt, x, y, w, h, , , cut]) => { const e = mk('div', cut ? 'f-photo is-cut' : 'f-photo', box(x, y, w, h) + ';opacity:0'); pic(e, f, alt); return e; });
   const dotEls = PALETTE.map(([c]) => mk('div', 'f-dot', 'left:0;top:0;width:100px;height:100px;background:' + c + ';opacity:0'));
   const strokeSvg = document.createElementNS(SVGNS, 'svg');
-  strokeSvg.setAttribute('viewBox', '0 0 1600 1000'); strokeSvg.setAttribute('class', 'f-svg'); strokeSvg.style.transform = 'rotate(-5deg)';
+  strokeSvg.setAttribute('viewBox', '0 0 1600 1000'); strokeSvg.setAttribute('class', 'f-svg');
   stage.appendChild(strokeSvg);
   const strokeEls = [];
   PALETTE.forEach(([c], i) => STROKE_SET.forEach(([, sw, , dy]) => {
@@ -371,9 +375,9 @@
     PALETTE.forEach(([, x, y], i) => {
       const a = 5.0 + i * 0.28, grow = eo(io_(t, a, a + .7));
       const mv = eio(io_(t, 7.4 + i * 0.12, 8.9 + i * 0.12));
-      const tx = 180 + (i % 2) * 20, ty = 230 + i * 110 - 30;
+      const [tx, ty] = DOT_END[i];
       const cx = x + (tx - x) * mv, cy = y + (ty - y) * mv;
-      const o = grow * (1 - io_(t, 9 + i * .45, 9.5 + i * .45)), r = 22 + mv * 14;
+      const o = grow * (1 - io_(t, 9.2 + i * .45, 10 + i * .45)), r = 22 + mv * 14;
       put(dotEls[i], 'opacity', o.toFixed(3));
       put(dotEls[i], 'transform', 'translate3d(' + (cx - 50).toFixed(1) + 'px,' + (cy - 50).toFixed(1) + 'px,0) scale(' + (grow * r / 50).toFixed(4) + ')');
     });

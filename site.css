@@ -189,6 +189,8 @@ h1, h2, p, figure { margin: 0; }
 .f-model { border-radius: 14px; box-shadow: 0 40px 80px -40px rgba(60,40,20,.4); }
 .f-photo img, .f-swatch img, .f-model img, .f-render img { width: 100%; height: 100%; object-fit: cover; }
 .f-photo img { filter: saturate(.9) contrast(.97) brightness(1.03); }
+.f-photo.is-cut { overflow: visible; border-radius: 0; box-shadow: none; }
+.f-photo.is-cut img { object-fit: contain; filter: saturate(.92) drop-shadow(0 24px 30px rgba(60,40,20,.28)); }
 .f-dot { border-radius: 50%; box-shadow: 0 0 0 5px rgba(255,255,255,.85), 0 12px 30px -8px rgba(60,40,20,.4); }
 .f-svg { inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .f-dim { color: #3b3734; letter-spacing: .06em; white-space: nowrap; }
