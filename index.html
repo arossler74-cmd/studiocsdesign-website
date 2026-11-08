@@ -1,119 +1,239 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-type="service" data-radius="soft" data-buttons="solid" data-motion>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cybelle Sampaio Studio — Interior Design, Orange County</title>
-<meta name="description" content="Warm, layered homes, quietly luxurious and shaped around the way you actually live. Interior design by Cybelle Sampaio, Orange County and Los Angeles.">
-<meta name="theme-color" content="#f5ead8">
-<meta property="og:title" content="Cybelle Sampaio Studio">
-<meta property="og:description" content="A home that lives the way you do. Interior design in Orange County, Los Angeles and online.">
-<meta property="og:image" content="https://www.studiocsdesign.com/assets/img/hero-poster.jpg">
-<meta property="og:url" content="https://www.studiocsdesign.com/">
+<title>Cybelle Sampaio Studio: interior design in Orange County</title>
+<meta name="description" content="Warm, layered homes designed room by room by Cybelle Sampaio, in person across Orange County and Los Angeles and online everywhere else.">
 <meta property="og:type" content="website">
+<meta property="og:title" content="Cybelle Sampaio Studio: interior design in Orange County">
+<meta property="og:description" content="Warm, layered homes designed room by room, in person in Orange County and Los Angeles, online everywhere else.">
+<meta property="og:image" content="https://www.studiocsdesign.com/share.jpg">
+<meta property="og:url" content="https://www.studiocsdesign.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.studiocsdesign.com/">
 <link rel="icon" href="assets/img/favicon.png">
-<link rel="preload" href="assets/fonts/cormorant-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/cormorant-300i-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/hero-poster.jpg" as="image">
-<link rel="stylesheet" href="site.css?v=2">
-<script>document.documentElement.classList.add('js')</script>
+<meta name="theme-color" content="#f5ead8">
+<meta name="site-kind" content="other">
+<meta name="page-type" content="service">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..700&family=Hanken+Grotesk:wght@400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<style>
+:root {
+  --p-bg: #f5ead8; --p-surface: #ebddc5; --p-ink: #2b261e; --p-muted: #665f54;
+  --p-accent: #a4572a; --p-accent-ink: #ffffff; --p-action: #a4572a; --p-action-ink: #ffffff;
+  --p-inv-bg: #2b261e; --p-inv-surface: #373229; --p-inv-ink: #f5ead8; --p-inv-muted: #a89f91;
+  --p-inv-accent: #f5ead8; --p-inv-accent-ink: #2b261e; --p-inv-action: #f5ead8; --p-inv-action-ink: #2b261e;
+  --font-display: "Newsreader", Georgia, serif;
+  --font-text: "Hanken Grotesk", system-ui, sans-serif;
+  --display-weight: 400;
+  --display-tracking: -0.018em;
+  --display-tracking-xl: -0.025em;
+  --ly-scale: 1.06;
+}
+</style>
+<style>
+  /* page CSS: the client's logo in the bar and the footer (a raster wordmark, so it gets a height) */
+  .nav__logo img { display: block; height: 36px; width: auto; }
+  .footer .nav__logo img { height: 72px; }
+  @media (max-width: 639px) { .nav__logo img { height: 24px; } }
+  /* page CSS: the work section's frames, one ratio per row; on a tablet the pairs stay two-up so the section keeps its two screens */
+  #work .frame { aspect-ratio: 4 / 3; }
+  #work .work-row2 .frame { aspect-ratio: 1 / 1; }
+  @media (min-width: 640px) and (max-width: 1023px) { #work .grid > .frame { grid-column: auto / span 6; aspect-ratio: 3 / 4; } }
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/word-highlight/moment.js">
+<link rel="modulepreload" href="assets/moments/photo-chapters/moment.js">
 </head>
 <body>
+<!-- type: service
+     deal: hero photo, nav nav-split, close close-type, footer footer-columns, rhythm space, buttons solid,
+           mark: the client's own logo; palette: the client's brand (cream #f5ead8, logo ink, terracotta);
+           type newsreader (zilla, the first dealt, fought the client's serif wordmark)
+     moments: word-highlight in #studio-note (the studio's own sentence lights up as it is read);
+              photo-chapters in #process (five steps of one project shown in the space of one frame) -->
 
-<header class="hdr" id="hdr">
-  <a class="hdr-brand" href="#top" aria-label="Cybelle Sampaio Studio — home">
-    <img class="logo logo-light" src="assets/img/logo.png" alt="" width="636" height="160">
-    <img class="logo logo-dark" src="assets/img/logo.png" alt="Cybelle Sampaio Studio" width="636" height="160">
-  </a>
-  <nav class="hdr-nav" aria-label="Main">
-    <a class="wide-only" href="#work">Work</a>
-    <a class="wide-only" href="#process">Process</a>
-    <a href="#begin">Contact</a>
-    <a href="https://platform.studiocsdesign.com/Studio%20Platform.dc.html" target="_blank" rel="noopener">Client login</a>
-  </nav>
-</header>
-
-<main>
-  <section id="top" class="hero">
-    <div class="hero-media" id="heroMedia">
-      <video class="hero-video" src="assets/video/hero.mp4" poster="assets/img/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
-    </div>
-    <div class="hero-scrim"></div>
-    <div class="hero-copy" id="heroCopy">
-      <h1 class="hero-title">
-        <span class="line"><span>A home that lives</span></span>
-        <span class="line"><span><em>the way you do.</em></span></span>
-      </h1>
-    </div>
-    <a class="hero-cue" href="#manifesto" aria-label="Scroll down"><span></span></a>
-  </section>
-
-  <section id="manifesto" class="manifesto">
-    <p class="manifesto-text" data-words>Warm, layered homes, quietly luxurious and shaped around the way you actually live.</p>
-  </section>
-
-  <section id="work" class="reel-wrap" aria-roledescription="carousel" aria-label="Selected interiors">
-    <div class="reel" id="reel">
-      <div class="reel-slides" id="reelSlides"></div>
-      <div class="reel-shade"></div>
-      <div class="reel-ui">
-        <div class="reel-count" aria-live="polite"><span id="reelNow">01</span><i></i><span id="reelAll">10</span></div>
-        <div class="reel-track"><div class="reel-fill" id="reelFill"></div></div>
-        <div class="reel-btns">
-          <button type="button" class="reel-btn" id="reelPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-          <button type="button" class="reel-btn" id="reelNext" aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+<header class="nav nav--split">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item">
+        <a class="nav__link" href="#work">Work <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <a class="menu-card span-3" href="#work">
+              <div class="panel"><img class="frame__img" src="assets/img/slides/02-640.webp" width="640" height="357" alt="Dining room with linen drapery and cane-back chairs" loading="lazy"></div>
+              <span class="t-card">Dining room</span>
+              <span class="t-small muted">Linen, cane and oak</span>
+            </a>
+            <a class="menu-card span-3" href="#work">
+              <div class="panel"><img class="frame__img" src="assets/img/slides/03-640.webp" width="640" height="357" alt="Primary bedroom in warm walnut and cream" loading="lazy"></div>
+              <span class="t-card">Primary bedroom</span>
+              <span class="t-small muted">Walnut and cream</span>
+            </a>
+            <a class="menu-card span-3" href="#work">
+              <div class="panel"><img class="frame__img" src="assets/img/slides/04-640.webp" width="640" height="357" alt="Covered terrace beside the pool" loading="lazy"></div>
+              <span class="t-card">Covered terrace</span>
+              <span class="t-small muted">An outdoor room by the pool</span>
+            </a>
+            <a class="menu-card span-3" href="#work">
+              <div class="panel"><img class="frame__img" src="assets/img/slides/10-640.webp" width="640" height="357" alt="Breakfast nook with tulips and garden light" loading="lazy"></div>
+              <span class="t-card">Breakfast nook</span>
+              <span class="t-small muted">Morning light on the garden</span>
+            </a>
+          </div>
         </div>
       </div>
+      <div class="nav__item"><a class="nav__link" href="#process">Process</a></div>
+      <div class="nav__item"><a class="nav__link" href="#studio">Studio</a></div>
+      <div class="nav__item"><a class="nav__link" href="#contact">Contact</a></div>
+    </nav>
+    <a class="nav__logo" href="#top"><img src="assets/img/logo-nav.png" alt="Cybelle Sampaio Studio" width="240" height="60"></a>
+    <div class="nav__actions">
+      <a class="nav__link" href="https://platform.studiocsdesign.com/Studio%20Platform.dc.html" target="_blank" rel="noopener">Client login</a>
+      <a class="btn btn--primary" href="mailto:contact@studiocsdesign.com?subject=New%20project%20enquiry">Book a consultation</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--photo" data-enter data-calm="left" aria-labelledby="hero-h">
+    <img class="hero__bg" width="1920" height="1080" src="assets/img/slides/08-2400.webp" srcset="assets/img/slides/08-1280.webp 1280w, assets/img/slides/08-2400.webp 1920w" sizes="(max-width: 1023px) 170vw, 100vw" alt="A family room seen from the garden doors, oak joinery and a low sofa" style="--ly-pos: 62% 50%; --ly-pos-phone: 60% 50%" fetchpriority="high" data-source="client" data-subject="a family room the studio designed">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__text">
+        <h1 id="hero-h">Interior design in Orange County</h1>
+        <p class="hero__lead">Cybelle Sampaio designs warm, layered homes room by room: in person across Orange County and Los Angeles, and online everywhere else.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="mailto:contact@studiocsdesign.com?subject=New%20project%20enquiry">Book a consultation<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          <a class="btn btn--secondary" href="#work">See the rooms</a>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- word-highlight: the studio's own sentence, one strong word -->
+  <section class="section statement" id="studio-note" data-moment="word-highlight" aria-label="The studio">
+    <div class="wrap">
+      <p class="t-label">The studio</p>
+      <p class="mo-wh__text">Warm, layered homes, quietly luxurious and shaped around the way you actually live. Each one starts with what you already love: <strong>the pieces you keep</strong>, the light you wake up to, the rooms your family lives in.</p>
     </div>
   </section>
 
-  <section id="about" class="about">
-    <div class="about-grid">
-      <figure class="about-photo" data-reveal="mask">
-        <picture>
-          <source srcset="assets/img/portrait.webp" type="image/webp">
-          <img src="assets/img/portrait.jpg" alt="Cybelle Sampaio" width="352" height="491" loading="lazy" decoding="async">
-        </picture>
-      </figure>
-      <div class="about-copy">
-        <h2 data-reveal>A well-traveled eye, <em>brought home.</em></h2>
-        <p class="lead" data-reveal>Cybelle Sampaio is an interior designer and decorator based in Orange County, California. Having lived in Brazil, Missouri, New York and Florida, she brings a sensibility shaped by many places to elegant, deeply personal homes — combining creativity with a strong aesthetic sense, one room at a time.</p>
-        <p class="aside" data-reveal>Working in person across Los Angeles and Orange County, and online everywhere else.</p>
+  <section class="section g2" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="work-h">Rooms from recent projects</h2>
+          <p>Dining rooms, bedrooms, an outdoor room and a breakfast nook, each drawn and specified by the studio down to the last lamp.</p>
+        </div>
+        <div class="grid">
+          <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/02-1280.webp" srcset="assets/img/slides/02-1280.webp 1280w, assets/img/slides/02-2400.webp 2400w" sizes="(max-width: 639px) 100vw, 50vw" alt="Dining room with linen drapery and cane-back chairs" loading="lazy" data-source="client"></figure>
+          <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/03-1280.webp" srcset="assets/img/slides/03-1280.webp 1280w, assets/img/slides/03-2400.webp 2400w" sizes="(max-width: 639px) 100vw, 50vw" alt="Primary bedroom in warm walnut and cream" loading="lazy" data-source="client"></figure>
+        </div>
+      </div>
+      <div class="grid work-row2">
+        <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/04-1280.webp" srcset="assets/img/slides/04-1280.webp 1280w, assets/img/slides/04-2400.webp 2400w" sizes="(max-width: 639px) 180vw, 90vw" alt="Covered terrace beside the pool" loading="lazy" data-source="client"></figure>
+        <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/10-1280.webp" srcset="assets/img/slides/10-1280.webp 1280w, assets/img/slides/10-2400.webp 2400w" sizes="(max-width: 639px) 180vw, 90vw" alt="Breakfast nook with tulips and garden light" loading="lazy" data-source="client"></figure>
       </div>
     </div>
   </section>
 
-  <section id="process" class="process">
-    <div class="film" id="film" role="img" aria-label="From inspiration to a finished room — a short animated sequence">
-      <div class="film-stage" id="filmStage"></div>
-    </div>
-    <div class="film-caps">
-      <div class="film-text" id="filmText"></div>
-      <div class="film-tabs" id="filmTabs" role="tablist" aria-label="From inspiration to home"></div>
+  <!-- photo-chapters: five steps of one project, one picture each, none used elsewhere on the page -->
+  <section class="section" id="process" data-moment="photo-chapters" aria-labelledby="process-h">
+    <div class="wrap mo-ph">
+      <div class="mo-ph__head"><h2 id="process-h">From a mood board to a finished room</h2><p>Every project moves through five steps, from the things you love to the room itself.</p></div>
+      <ol class="mo-ph__list">
+        <li class="mo-ph__ch">
+          <figure class="mo-ph__pic"><picture><source media="(max-width: 639px)" srcset="assets/concept/ch-inspiration-phone.webp"><img src="assets/concept/ch-inspiration.webp" srcset="assets/concept/ch-inspiration-720.webp 720w, assets/concept/ch-inspiration-1200.webp 1200w, assets/concept/ch-inspiration.webp 2400w" sizes="(max-width: 639px) 160vw, 90vw" loading="lazy" alt="A mood board of a violet dusk, dried flowers, ripe figs and a paper-wrapped bouquet, with six colour chips" width="2400" height="1500"></picture></figure>
+          <h3>Gathering what you love</h3>
+          <p>A fig, a violet dusk, dried flowers in late light. We start with pictures, not furniture, and draw a palette from them.</p>
+        </li>
+        <li class="mo-ph__ch">
+          <figure class="mo-ph__pic"><picture><source media="(max-width: 639px)" srcset="assets/concept/ch-material-phone.webp"><img src="assets/concept/ch-material.webp" srcset="assets/concept/ch-material-720.webp 720w, assets/concept/ch-material-1200.webp 1200w, assets/concept/ch-material.webp 2400w" sizes="(max-width: 639px) 160vw, 90vw" loading="lazy" alt="Samples of white oak, oak joinery, walnut, cane, linen, limewash, brushed bronze and glazed brick" width="2400" height="1500"></picture></figure>
+          <h3>Choosing colours and materials</h3>
+          <p>Oak, walnut, linen, cane and brushed bronze, chosen by hand against that palette.</p>
+        </li>
+        <li class="mo-ph__ch">
+          <figure class="mo-ph__pic"><picture><source media="(max-width: 639px)" srcset="assets/concept/ch-plan-phone.webp"><img src="assets/concept/ch-plan.webp" srcset="assets/concept/ch-plan-720.webp 720w, assets/concept/ch-plan-1200.webp 1200w, assets/concept/ch-plan.webp 2400w" sizes="(max-width: 639px) 160vw, 90vw" loading="lazy" alt="A furniture plan of the family room drawn to scale" width="2400" height="1500"></picture></figure>
+          <h3>Drawing the plan</h3>
+          <p>Every wall, opening and piece of furniture drawn to scale, so you know what fits before anything is ordered.</p>
+        </li>
+        <li class="mo-ph__ch">
+          <figure class="mo-ph__pic"><picture><source media="(max-width: 639px)" srcset="assets/concept/model-phone.webp"><img src="assets/concept/model.webp" srcset="assets/concept/model-720.webp 720w, assets/concept/model-800.webp 800w, assets/concept/model.webp 1600w" sizes="(max-width: 639px) 160vw, 90vw" loading="lazy" alt="A white model of the family room showing its volumes and light" width="1600" height="900"></picture></figure>
+          <h3>Shaping the room</h3>
+          <p>A white model shows the volumes and the daylight before a single finish goes on.</p>
+        </li>
+        <li class="mo-ph__ch">
+          <figure class="mo-ph__pic"><picture><source media="(max-width: 639px)" srcset="assets/concept/01-phone.webp"><img src="assets/img/slides/01-2400.webp" srcset="assets/img/slides/01-720.webp 720w, assets/img/slides/01-1280.webp 1280w, assets/img/slides/01-2400.webp 1920w" sizes="(max-width: 639px) 160vw, 90vw" loading="lazy" alt="The finished family room with oak joinery and a low sculptural sofa" width="1920" height="1080"></picture></figure>
+          <h3>Finishing the room</h3>
+          <p>The materials go on, the pieces arrive, and the room is yours.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <section id="begin" class="begin">
-    <h2 class="begin-title" data-words>Let's make your home <em>feel like you.</em></h2>
-    <p data-reveal>Every project begins with a conversation. Tell me about your home, and I'll come back with a plan made for it.</p>
-    <div data-reveal>
-      <a class="cta" href="mailto:contact@studiocsdesign.com?subject=New%20project%20enquiry"><span>Book a consultation</span></a>
+  <section class="section" id="studio" aria-labelledby="studio-h">
+    <div class="wrap grid grid--top">
+      <div class="span-6">
+        <div class="section-head">
+          <h2 id="studio-h">Cybelle Sampaio, interior designer. <span class="muted">A well-traveled eye, brought home.</span></h2>
+          <p>Cybelle is an interior designer and decorator based in Orange County, California. Having lived in Brazil, Missouri, New York and Florida, she brings a sense of many places to elegant, personal homes, one room at a time.</p>
+        </div>
+        <ul class="rows">
+          <li><span class="rows__name">In person</span><span class="rows__value">Los Angeles and Orange County</span></li>
+          <li><span class="rows__name">Online</span><span class="rows__value">Everywhere else</span></li>
+        </ul>
+      </div>
+      <figure class="frame frame--photo span-5 start-8" style="aspect-ratio: 4 / 5"><picture><source srcset="assets/img/portrait.webp" type="image/webp"><img class="frame__img" src="assets/img/portrait.jpg" alt="Cybelle Sampaio" width="352" height="491" loading="lazy" data-source="client"></picture></figure>
     </div>
   </section>
 </main>
 
-<footer class="foot">
-  <div class="foot-in">
-    <img src="assets/img/logo-footer.png" alt="Cybelle Sampaio Studio" width="826" height="443" loading="lazy">
-    <div class="foot-links">
-      <a href="mailto:contact@studiocsdesign.com">contact@studiocsdesign.com</a>
-      <a href="tel:+13146409048">(314) 640-9048</a>
-      <span>© 2026 Cybelle Sampaio Studio</span>
+<footer class="footer closing" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Book a consultation</h2>
+        <p>Every project begins with a conversation. Tell me about your home, and I'll come back with a plan made for it.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="mailto:contact@studiocsdesign.com?subject=New%20project%20enquiry">Book a consultation<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top"><img src="assets/img/logo-footer-sm.png" alt="Cybelle Sampaio Studio" width="290" height="156" loading="lazy"></a>
+          <p class="footer__lede">Interior design for homes in Orange County, Los Angeles and online.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Work</h3><ul><li><a href="#work">Recent rooms</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Process</h3><ul><li><a href="#process">Five steps</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Studio</h3><ul><li><a href="#studio">About Cybelle</a></li><li><a href="https://platform.studiocsdesign.com/Studio%20Platform.dc.html" target="_blank" rel="noopener">Client login</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Contact</h3><ul><li><a href="mailto:contact@studiocsdesign.com">Email the studio</a></li><li><a href="tel:+13146409048">Call the studio</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Cybelle Sampaio Studio</span>
+        <div class="socials"></div>
+      </div>
     </div>
   </div>
 </footer>
 
-<script src="site.js?v=2" defer></script>
+<nav class="actionbar" aria-label="Quick actions">
+  <a class="btn btn--primary" href="mailto:contact@studiocsdesign.com?subject=New%20project%20enquiry">Book a consultation</a>
+</nav>
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
 </body>
 </html>

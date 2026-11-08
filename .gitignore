@@ -1,0 +1,26 @@
+# Taste skill working files (checks, screenshots, Chrome profiles)
+.taste-skill/
+shots/
+
+# Taste kit: only the files the page loads are published
+assets/starter.html
+assets/backgrounds/
+assets/components/
+assets/diagrams/
+assets/effects/
+assets/icons/
+assets/objects/
+assets/photos/
+assets/scenes/
+assets/layout/*
+!assets/layout/layout.css
+!assets/layout/layout.js
+assets/moments/*
+!assets/moments/lib.js
+!assets/moments/moments.js
+!assets/moments/photo-chapters/
+!assets/moments/word-highlight/
+assets/moments/*/demo.html
+assets/ui/*
+!assets/ui/cards.css
+!assets/ui/ui.js
