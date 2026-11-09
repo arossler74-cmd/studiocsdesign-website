@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cybelle Sampaio Studio: interior design in Orange County</title>
-<meta name="description" content="Warm, layered homes designed room by room by Cybelle Sampaio, in person across Orange County and Los Angeles and online everywhere else.">
+<title>Cybelle Sampaio Studio: interior decoration in Orange County</title>
+<meta name="description" content="Warm, layered homes decorated room by room by Cybelle Sampaio, in person across Orange County and Los Angeles and online everywhere else.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cybelle Sampaio Studio: interior design in Orange County">
-<meta property="og:description" content="Warm, layered homes designed room by room, in person in Orange County and Los Angeles, online everywhere else.">
+<meta property="og:title" content="Cybelle Sampaio Studio: interior decoration in Orange County">
+<meta property="og:description" content="Warm, layered homes decorated room by room, in person in Orange County and Los Angeles, online everywhere else.">
 <meta property="og:image" content="https://www.studiocsdesign.com/share.jpg">
 <meta property="og:url" content="https://www.studiocsdesign.com/">
 <meta name="twitter:card" content="summary_large_image">
@@ -46,6 +46,16 @@
   #work .frame { aspect-ratio: 4 / 3; }
   #work .work-row2 .frame { aspect-ratio: 1 / 1; }
   @media (min-width: 640px) and (max-width: 1023px) { #work .grid > .frame { grid-column: auto / span 6; aspect-ratio: 3 / 4; } }
+  /* page CSS: the hero's words, no box, centred on the calm ceiling of the photograph */
+  .hero--photo[data-calm="top"] .hero__text { width: 100%; max-width: 640px; margin-inline: auto; text-align: center; padding-top: clamp(8px, 4svh, 48px); }
+  .hero--photo .hero__text h1 { font-size: calc(var(--ly-scale) * clamp(40px, 3.4vw + 12px, 68px)); max-width: none; letter-spacing: -0.01em; }
+  .hero__eyebrow, .hero__place { margin: 0; font: 500 13px/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--p-ink); }
+  .hero__eyebrow { margin-bottom: var(--s-4); }
+  .hero__place { margin-top: var(--s-4); letter-spacing: .1em; }
+  .hero--photo[data-calm="top"] .btn-row { justify-content: center; margin-top: var(--s-6); }
+  @media (max-width: 1023px) { .hero--photo[data-calm="top"] .hero__text { text-align: left; margin-inline: 0; padding-top: 0; } .hero--photo[data-calm="top"] .btn-row { justify-content: flex-start; } }
+  /* page CSS: the palette's brush strokes on the process stage (assets/brush.js) */
+  #process .brush { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: multiply; }
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
@@ -109,15 +119,15 @@
 </header>
 
 <main id="top">
-  <section class="hero hero--photo" data-enter data-calm="left" aria-labelledby="hero-h">
+  <section class="hero hero--photo" data-enter data-calm="top" data-box="none" data-tone="light" aria-labelledby="hero-h">
     <img class="hero__bg" width="1920" height="1080" src="assets/img/slides/08-2400.webp" srcset="assets/img/slides/08-1280.webp 1280w, assets/img/slides/08-2400.webp 1920w" sizes="(max-width: 1023px) 170vw, 100vw" alt="A family room seen from the garden doors, oak joinery and a low sofa" style="--ly-pos: 62% 50%; --ly-pos-phone: 60% 50%" fetchpriority="high" data-source="client" data-subject="a family room the studio designed">
     <div class="wrap"><div class="hero-text">
       <div class="hero__text">
-        <h1 id="hero-h">Interior design in Orange County</h1>
-        <p class="hero__lead">Cybelle Sampaio designs warm, layered homes room by room: in person across Orange County and Los Angeles, and online everywhere else.</p>
+        <p class="hero__eyebrow">Cybelle Sampaio Studio</p>
+        <h1 id="hero-h">Interior Decoration</h1>
+        <p class="hero__place">Homes in Orange County, Los Angeles &amp; online</p>
         <div class="btn-row">
           <a class="btn btn--primary" href="mailto:contact@studiocsdesign.com?subject=New%20project%20enquiry">Book a consultation<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
-          <a class="btn btn--secondary" href="#work">See the rooms</a>
         </div>
       </div>
     </div></div>
@@ -127,26 +137,7 @@
   <section class="section statement" id="studio-note" data-moment="word-highlight" aria-label="The studio">
     <div class="wrap">
       <p class="t-label">The studio</p>
-      <p class="mo-wh__text">Warm, layered homes, quietly luxurious and shaped around the way you actually live. Each one starts with what you already love: <strong>the pieces you keep</strong>, the light you wake up to, the rooms your family lives in.</p>
-    </div>
-  </section>
-
-  <section class="section g2" id="work" aria-labelledby="work-h">
-    <div class="wrap">
-      <div class="group">
-        <div class="section-head">
-          <h2 id="work-h">Rooms from recent projects</h2>
-          <p>Dining rooms, bedrooms, an outdoor room and a breakfast nook, each drawn and specified by the studio down to the last lamp.</p>
-        </div>
-        <div class="grid">
-          <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/02-1280.webp" srcset="assets/img/slides/02-1280.webp 1280w, assets/img/slides/02-2400.webp 2400w" sizes="(max-width: 639px) 100vw, 50vw" alt="Dining room with linen drapery and cane-back chairs" loading="lazy" data-source="client"></figure>
-          <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/03-1280.webp" srcset="assets/img/slides/03-1280.webp 1280w, assets/img/slides/03-2400.webp 2400w" sizes="(max-width: 639px) 100vw, 50vw" alt="Primary bedroom in warm walnut and cream" loading="lazy" data-source="client"></figure>
-        </div>
-      </div>
-      <div class="grid work-row2">
-        <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/04-1280.webp" srcset="assets/img/slides/04-1280.webp 1280w, assets/img/slides/04-2400.webp 2400w" sizes="(max-width: 639px) 180vw, 90vw" alt="Covered terrace beside the pool" loading="lazy" data-source="client"></figure>
-        <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/10-1280.webp" srcset="assets/img/slides/10-1280.webp 1280w, assets/img/slides/10-2400.webp 2400w" sizes="(max-width: 639px) 180vw, 90vw" alt="Breakfast nook with tulips and garden light" loading="lazy" data-source="client"></figure>
-      </div>
+      <p class="mo-wh__text">Warm, layered rooms shaped around <strong>the pieces you keep</strong> and the way you actually live.</p>
     </div>
   </section>
 
@@ -184,12 +175,31 @@
     </div>
   </section>
 
+  <section class="section g2" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="work-h">Rooms from recent projects</h2>
+          <p>Dining rooms, bedrooms, an outdoor room and a breakfast nook, each drawn and specified by the studio down to the last lamp.</p>
+        </div>
+        <div class="grid">
+          <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/02-1280.webp" srcset="assets/img/slides/02-1280.webp 1280w, assets/img/slides/02-2400.webp 2400w" sizes="(max-width: 639px) 100vw, 50vw" alt="Dining room with linen drapery and cane-back chairs" loading="lazy" data-source="client"></figure>
+          <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/03-1280.webp" srcset="assets/img/slides/03-1280.webp 1280w, assets/img/slides/03-2400.webp 2400w" sizes="(max-width: 639px) 100vw, 50vw" alt="Primary bedroom in warm walnut and cream" loading="lazy" data-source="client"></figure>
+        </div>
+      </div>
+      <div class="grid work-row2">
+        <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/04-1280.webp" srcset="assets/img/slides/04-1280.webp 1280w, assets/img/slides/04-2400.webp 2400w" sizes="(max-width: 639px) 180vw, 90vw" alt="Covered terrace beside the pool" loading="lazy" data-source="client"></figure>
+        <figure class="frame frame--photo span-6"><img class="frame__img" width="1280" height="715" src="assets/img/slides/10-1280.webp" srcset="assets/img/slides/10-1280.webp 1280w, assets/img/slides/10-2400.webp 2400w" sizes="(max-width: 639px) 180vw, 90vw" alt="Breakfast nook with tulips and garden light" loading="lazy" data-source="client"></figure>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="studio" aria-labelledby="studio-h">
     <div class="wrap grid grid--top">
       <div class="span-6">
         <div class="section-head">
-          <h2 id="studio-h">Cybelle Sampaio, interior designer. <span class="muted">A well-traveled eye, brought home.</span></h2>
-          <p>Cybelle is an interior designer and decorator based in Orange County, California. Having lived in Brazil, Missouri, New York and Florida, she brings a sense of many places to elegant, personal homes, one room at a time.</p>
+          <h2 id="studio-h">Cybelle Sampaio, interior decorator. <span class="muted">A well-traveled eye, brought home.</span></h2>
+          <p>Cybelle is an interior decorator based in Orange County, California. Having lived in Brazil, Missouri, New York and Florida, she brings a sense of many places to elegant, personal homes, one room at a time.</p>
         </div>
         <ul class="rows">
           <li><span class="rows__name">In person</span><span class="rows__value">Los Angeles and Orange County</span></li>
@@ -214,7 +224,7 @@
       <div class="grid">
         <div class="span-4 stack-4">
           <a class="nav__logo" href="#top"><img src="assets/img/logo-footer-sm.png" alt="Cybelle Sampaio Studio" width="290" height="156" loading="lazy"></a>
-          <p class="footer__lede">Interior design for homes in Orange County, Los Angeles and online.</p>
+          <p class="footer__lede">Interior decoration for homes in Orange County, Los Angeles and online.</p>
         </div>
         <div class="span-2 footer__col"><h3>Work</h3><ul><li><a href="#work">Recent rooms</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Process</h3><ul><li><a href="#process">Five steps</a></li></ul></div>
@@ -235,5 +245,6 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
+<script type="module" src="assets/brush.js"></script>
 </body>
 </html>
