@@ -29,21 +29,26 @@
   /* Where a flick would come to rest (Apple's exponential-decay projection). */
   const project = (v, d = 0.998) => (v / 1000) * d / (1 - d);
 
-  /* ─── Hero: the opening words drift up and fade as the page leaves them (the header stays still) ─── */
-  const hero = $('#top'), heroCopy = $('#heroCopy');
+  /* ─── Hero: the opening drifts up and fades as the page leaves it; the header's logo takes
+     over from the hero's mark once the mark has scrolled away, and hands back on the way up ─── */
+  const hdr = $('#hdr'), hero = $('#top'), heroCopy = $('#heroCopy'), mark = $('.hero-mark'), cue = $('.cue-line');
   let ticking = false;
   function onScroll() {
-    if (ticking || reduce) return; ticking = true;
+    if (ticking) return; ticking = true;
     requestAnimationFrame(() => {
       ticking = false;
       const y = window.scrollY, h = hero.offsetHeight;
-      if (y < h * 1.2) {
+      const r = mark.getBoundingClientRect();
+      hdr.classList.toggle('has-brand', r.top + r.height * 0.6 < hdr.offsetHeight || y > h * 0.5);
+      if (!reduce && y < h * 1.2) {
         heroCopy.style.transform = 'translate3d(0,' + (y * -0.12).toFixed(1) + 'px,0)';
-        heroCopy.style.opacity = (1 - clamp(y / (h * 0.6), 0, 1)).toFixed(3);
+        heroCopy.style.opacity = (1 - clamp(y / (h * 0.55), 0, 1)).toFixed(3);
+        cue.style.opacity = (1 - clamp(y / (h * 0.2), 0, 1)).toFixed(3);
       }
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
   onScroll();
 
   /* ─── Word-by-word headlines + scroll reveals ─── */

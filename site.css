@@ -8,15 +8,15 @@
   --bg: #f5ead8;
   --surface: #ebddc5;
   --paper: #efe8dc;
-  --text: #201e1d;
+  --text: #57534e;   /* the site's type: a mid warm grey, easy on the plaster */
   --accent: #c67139;
   --accent-600: #b2622d;
   --accent-700: #8c491a;
   --n-200: #eee7db;
   --n-300: #dcd3c4;
   --n-500: #a19786;
-  --n-700: #645c50;
-  --n-800: #474238;
+  --n-700: #6f6a64;
+  --n-800: #625d57;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Jost', system-ui, sans-serif;
   --gutter: clamp(22px, 5vw, 64px);
@@ -61,7 +61,8 @@ h1, h2, p, figure { margin: 0; }
   -webkit-backdrop-filter: saturate(1.4) blur(18px); backdrop-filter: saturate(1.4) blur(18px);
   box-shadow: 0 1px 0 rgba(32, 30, 29, .07);
 }
-.hdr-brand { display: block; height: 38px; aspect-ratio: 636 / 160; }
+.hdr-brand { display: block; height: 38px; aspect-ratio: 636 / 160; transition: opacity .5s var(--out), transform .6s var(--out); }
+.js .hdr:not(.has-brand) .hdr-brand { opacity: 0; transform: translate3d(0, 6px, 0); pointer-events: none; }
 .logo { width: 100%; height: 100%; }
 .hdr-nav { justify-self: center; display: flex; align-items: center; gap: clamp(18px, 3vw, 44px); white-space: nowrap; font-size: 11.5px; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; }
 .hdr-nav a { position: relative; padding: 10px 0; }
@@ -89,37 +90,35 @@ h1, h2, p, figure { margin: 0; }
   .hdr::before { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
-/* ─── Hero: words only, on the plaster ─── */
+/* ─── Hero: the studio's mark pressed into the plaster, and one line ─── */
 .hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; display: grid; place-items: center; overflow: hidden; }
-.hero-copy { display: flex; flex-direction: column; align-items: center; gap: clamp(22px, 3.4vh, 34px); padding: 80px 24px 0; text-align: center; will-change: transform, opacity; }
-.hero-eyebrow { font-size: 11.5px; font-weight: 400; letter-spacing: .32em; text-transform: uppercase; color: var(--n-700); display: flex; align-items: center; gap: 18px; }
-.hero-eyebrow::before, .hero-eyebrow::after { content: ""; width: clamp(28px, 4vw, 56px); height: 1px; background: currentColor; opacity: .5; }
-.hero-title { font-family: var(--serif); font-weight: 300; font-size: clamp(50px, 7.4vw, 124px); line-height: .98; letter-spacing: -.02em; color: var(--text); }
-.hero-sub { max-width: 34ch; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.75; color: var(--n-800); text-wrap: balance; }
+.hero-copy { display: flex; flex-direction: column; align-items: center; gap: clamp(30px, 5vh, 56px); padding: 70px 24px 0; text-align: center; will-change: transform, opacity; }
+/* the mark: plaster-coloured, lit from the upper left, so it reads as embossed in the wall */
+.hero-mark {
+  width: clamp(270px, min(46vw, 58svh), 620px); aspect-ratio: 1260 / 706;
+  filter: drop-shadow(-1px -1px .5px rgba(255, 252, 246, .95)) drop-shadow(1.5px 2px 1.2px rgba(84, 62, 40, .38)) drop-shadow(0 12px 20px rgba(84, 62, 40, .12));
+}
+.hero-mark i {
+  display: block; width: 100%; height: 100%;
+  background: linear-gradient(150deg, #f4ece2 0%, #e6dacb 45%, #d6c8b5 100%);
+  -webkit-mask: url(assets/img/logo-mark.png) center / contain no-repeat; mask: url(assets/img/logo-mark.png) center / contain no-repeat;
+}
+.hero-title { font-family: var(--serif); font-weight: 300; font-size: clamp(42px, 5.6vw, 92px); line-height: 1; letter-spacing: -.018em; color: var(--text); }
 .line { display: block; overflow: hidden; padding-bottom: .1em; }
 .line > span { display: block; }
+.js .hero-mark { animation: press 2s .1s var(--out) both; }
 .js .line > span { animation: lineUp 1.5s var(--out) both; }
-.js .line:nth-child(1) > span { animation-delay: .35s; }
-.js .line:nth-child(2) > span { animation-delay: .52s; }
-.js .hero-eyebrow { animation: rise 1.2s .15s var(--out) both; }
-.js .hero-eyebrow::before, .js .hero-eyebrow::after { animation: draw 1.4s .5s var(--out) both; }
-.js .hero-sub { animation: rise 1.3s .85s var(--out) both; }
+.js .line:nth-child(1) > span { animation-delay: .55s; }
+.js .line:nth-child(2) > span { animation-delay: .72s; }
+@keyframes press { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
 @keyframes lineUp { from { transform: translate3d(0, 105%, 0); } to { transform: none; } }
-@keyframes rise { from { opacity: 0; transform: translate3d(0, 14px, 0); } to { opacity: 1; transform: none; } }
-@keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@media (max-width: 519px) { .hero-eyebrow { font-size: 10px; letter-spacing: .24em; white-space: nowrap; } .hero-eyebrow::before, .hero-eyebrow::after { display: none; } }
-/* the scroll cue: a word, a line that runs down, and an arrowhead that follows it */
-.hero-cue { position: absolute; left: 50%; bottom: clamp(26px, 5vh, 46px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 16px; color: var(--n-800); transition: color .3s ease; }
-.cue-label { font-size: 10.5px; font-weight: 400; letter-spacing: .34em; margin-right: -.34em; text-transform: uppercase; }
-.cue-line { position: relative; width: 1px; height: 54px; background: rgba(32, 30, 29, .16); overflow: hidden; }
-.cue-line::after { content: ""; position: absolute; inset: 0; background: currentColor; transform: scaleY(0); transform-origin: top; }
-.cue-head { width: 13px; height: 8px; margin-top: -10px; fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
-.hero-cue:hover { color: var(--accent-700); }
-.js .hero-cue { animation: fadeIn 1s 1.5s ease both; }
-.js .cue-line::after { animation: cue 2.4s 1.8s var(--inout) infinite; }
-.js .cue-head { animation: nudge 2.4s 1.8s var(--inout) infinite; }
-@keyframes cue { 0% { transform: scaleY(0); transform-origin: top; } 45% { transform: scaleY(1); transform-origin: top; } 55% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
-@keyframes nudge { 0%, 30% { transform: translateY(0); } 50% { transform: translateY(5px); } 70%, 100% { transform: translateY(0); } }
+/* the scroll cue: only a thin line that keeps running down */
+.hero-cue { position: absolute; left: 50%; bottom: clamp(22px, 4.5vh, 42px); transform: translateX(-50%); padding: 10px 18px; color: var(--text); }
+.cue-line { position: relative; display: block; width: 1px; height: clamp(60px, 9vh, 84px); background: rgba(87, 83, 78, .2); overflow: hidden; }
+.cue-line::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 45%; background: currentColor; transform: translate3d(0, -100%, 0); }
+.js .hero-cue { animation: fadeIn 1s 1.6s ease both; }
+.js .cue-line::after { animation: run 2.2s 1.9s var(--inout) infinite; }
+@keyframes run { 0% { transform: translate3d(0, -100%, 0); } 70%, 100% { transform: translate3d(0, 222%, 0); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* ─── Reveal on scroll (only once JS is confirmed running) ─── */
@@ -204,7 +203,7 @@ h1, h2, p, figure { margin: 0; }
 .chap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 16px; opacity: 0; transform: translate3d(0, 14px, 0); pointer-events: none; transition: opacity .7s var(--inout), transform 1s var(--out); }
 .chap.is-on { opacity: 1; transform: none; pointer-events: auto; transition-delay: .25s; }
 .chap h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 5vw, 80px); line-height: 1; letter-spacing: -.025em; }
-.chap p { font-size: 16px; line-height: 1.7; color: #5e5752; max-width: 42ch; }
+.chap p { font-size: 16px; line-height: 1.7; color: var(--n-800); max-width: 42ch; }
 .film-tabs { display: flex; gap: 8px; padding-bottom: 10px; }
 .film-tab { width: clamp(26px, 3.4vw, 46px); padding: 14px 0; background: none; border: 0; cursor: pointer; }
 .film-tab span { position: relative; display: block; height: 2px; border-radius: 2px; background: #d8cfc2; overflow: hidden; transition: transform .3s var(--out); }
@@ -238,7 +237,8 @@ h1, h2, p, figure { margin: 0; }
 /* ─── Reduced motion: cross-fades stay, travel and zoom go ─── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .line > span, .js .hero-eyebrow, .js .hero-eyebrow::before, .js .hero-eyebrow::after, .js .hero-sub, .js .hero-cue, .js .cue-line::after, .js .cue-head { animation: none !important; }
+  .js .line > span, .js .hero-mark, .js .hero-cue { animation: none !important; }
+  .js .cue-line::after { animation: none !important; transform: none; opacity: .5; }
   .js [data-reveal], .js [data-words] .w { transform: none !important; filter: none !important; transition: opacity .6s ease !important; }
   .js [data-reveal="mask"] { clip-path: none; }
   .js [data-reveal="mask"] img { transform: none; }
