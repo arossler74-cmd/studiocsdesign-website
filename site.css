@@ -92,14 +92,22 @@ h1, h2, p, figure { margin: 0; }
 /* ─── Hero: the studio's mark pressed into the plaster, and one line ─── */
 .hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; display: grid; place-items: center; overflow: hidden; }
 .hero-copy { display: flex; flex-direction: column; align-items: center; gap: clamp(30px, 5vh, 56px); padding: 70px 24px 0; text-align: center; will-change: transform, opacity; }
+/* wide screens: the engraved mark on the left, a hairline, the line of words on the right */
+@media (min-width: 900px) {
+  .hero-copy { flex-direction: row; gap: clamp(40px, 5vw, 88px); padding: 70px var(--gutter) 0; text-align: left; }
+  .hero-copy::before { content: ""; order: 2; align-self: center; width: 1px; height: clamp(180px, 26vh, 280px); background: rgba(110, 106, 101, .28); }
+  .hero-title { order: 3; }
+  .js .hero-copy::before { animation: grow 1.4s .4s var(--out) both; }
+}
+@keyframes grow { from { transform: scaleY(0); } to { transform: none; } }
 /* the mark: engraved into the plaster, a mid-dark grey floor with its top-left walls in shadow
    and its lower lip catching the light (pre-rendered in assets/img/logo-engraved.png) */
 .hero-mark {
-  width: clamp(270px, min(46vw, 58svh), 620px); aspect-ratio: 1252 / 698;
+  width: clamp(270px, min(36vw, 62svh), 560px); aspect-ratio: 1252 / 783; flex: none;
   background: url(assets/img/logo-engraved.png) center / contain no-repeat;
 }
 .hero-mark i { display: none; }
-.hero-title { font-family: var(--serif); font-weight: 300; font-size: clamp(42px, 5.6vw, 92px); line-height: 1; letter-spacing: -.018em; color: var(--text); }
+.hero-title { font-family: var(--serif); font-weight: 300; font-size: clamp(42px, 5.2vw, 88px); line-height: 1.02; letter-spacing: -.018em; color: var(--text); }
 .line { display: block; overflow: hidden; padding-bottom: .1em; }
 .line > span { display: block; }
 .js .hero-mark { animation: press 2s .1s var(--out) both; }
@@ -230,7 +238,7 @@ h1, h2, p, figure { margin: 0; }
 /* ─── Reduced motion: cross-fades stay, travel and zoom go ─── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .line > span, .js .hero-mark, .js .hero-cue { animation: none !important; }
+  .js .line > span, .js .hero-mark, .js .hero-cue, .js .hero-copy::before { animation: none !important; }
   .js .cue-line::after { animation: none !important; transform: none; opacity: .5; }
   .js [data-reveal], .js [data-words] .w { transform: none !important; filter: none !important; transition: opacity .6s ease !important; }
   .js [data-reveal="mask"] { clip-path: none; }
