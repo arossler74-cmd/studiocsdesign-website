@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="preload" href="assets/img/bg-plaster-1280.webp" as="image" media="(max-width: 1280px)">
 <link rel="preload" href="assets/img/bg-plaster-2400.webp" as="image" media="(min-width: 1281px)">
-<link rel="stylesheet" href="site.css?v=8">
+<link rel="stylesheet" href="site.css?v=9">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -27,9 +27,9 @@
     <img class="logo" src="assets/img/logo.png" alt="Cybelle Sampaio Studio" width="636" height="160">
   </a>
   <nav class="hdr-nav" aria-label="Main">
-    <a class="wide-only" href="#work">Work</a>
-    <a class="wide-only" href="#process">Process</a>
-    <a href="#begin">Contact</a>
+    <a class="wide-only" href="#studio">Studio</a>
+    <a class="wide-only" href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
     <a href="https://platform.studiocsdesign.com/Studio%20Platform.dc.html" target="_blank" rel="noopener">Client login</a>
   </nav>
   <div class="hdr-social wide-only">
@@ -52,26 +52,11 @@
         <span class="line"><span><em>as you live.</em></span></span>
       </h1>
     </div>
-    <a class="hero-cue" href="#manifesto" aria-label="Scroll down"><span class="cue-line"></span></a>
+    <a class="hero-cue" href="#studio" aria-label="Scroll down"><span class="cue-line"></span></a>
   </section>
 
-  <section id="manifesto" class="manifesto">
+  <section id="studio" class="manifesto">
     <p class="manifesto-text" data-words>Warm, layered homes, quietly luxurious and shaped around the way you actually live.</p>
-  </section>
-
-  <section id="work" class="reel-wrap" aria-roledescription="carousel" aria-label="Selected interiors">
-    <div class="reel" id="reel">
-      <div class="reel-slides" id="reelSlides"></div>
-      <div class="reel-shade"></div>
-      <div class="reel-ui">
-        <div class="reel-count" aria-live="polite"><span id="reelNow">01</span><i></i><span id="reelAll">10</span></div>
-        <div class="reel-track"><div class="reel-fill" id="reelFill"></div></div>
-        <div class="reel-btns">
-          <button type="button" class="reel-btn" id="reelPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-          <button type="button" class="reel-btn" id="reelNext" aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-        </div>
-      </div>
-    </div>
   </section>
 
   <section id="about" class="about">
@@ -100,7 +85,28 @@
     </div>
   </section>
 
-  <section id="begin" class="begin">
+  <section id="projects" class="projects" aria-labelledby="projects-title">
+    <header class="projects-head">
+      <p class="eyebrow" data-reveal>Projects</p>
+      <h2 id="projects-title" data-words>Curated <em>projects.</em></h2>
+    </header>
+    <div class="reel-wrap" aria-roledescription="carousel" aria-label="Selected interiors">
+    <div class="reel" id="reel">
+      <div class="reel-slides" id="reelSlides"></div>
+      <div class="reel-shade"></div>
+      <div class="reel-ui">
+        <div class="reel-count" aria-live="polite"><span id="reelNow">01</span><i></i><span id="reelAll">10</span></div>
+        <div class="reel-track"><div class="reel-fill" id="reelFill"></div></div>
+        <div class="reel-btns">
+          <button type="button" class="reel-btn" id="reelPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" class="reel-btn" id="reelNext" aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section id="contact" class="begin">
     <h2 class="begin-title" data-words>Let's make your home <em>feel like you.</em></h2>
     <p data-reveal>Every project begins with a conversation. Tell me about your home, and I'll come back with a plan made for it.</p>
     <div data-reveal>

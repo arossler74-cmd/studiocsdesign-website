@@ -140,6 +140,12 @@ h1, h2, p, figure { margin: 0; }
 .manifesto { padding: clamp(150px, 22vh, 260px) clamp(22px, 6vw, 80px); display: flex; justify-content: center; text-align: center; }
 .manifesto-text { max-width: 980px; font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3.6vw, 56px); line-height: 1.22; letter-spacing: -.015em; text-wrap: balance; }
 
+/* ─── Projects: a quiet heading, then the carousel ─── */
+.projects { padding-top: clamp(150px, 22vh, 250px); }
+.projects-head { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 0 var(--gutter) clamp(44px, 7vh, 72px); text-align: center; }
+.eyebrow { font-size: 11.5px; font-weight: 400; letter-spacing: .32em; margin-right: -.32em; text-transform: uppercase; color: var(--n-700); }
+.projects-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 4.4vw, 70px); line-height: 1.02; letter-spacing: -.022em; }
+
 /* ─── Reel (selected interiors) ─── */
 .reel { position: relative; height: clamp(460px, 92vh, 1000px); overflow: hidden; background: var(--text); touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
 .reel.is-dragging { cursor: grabbing; }
