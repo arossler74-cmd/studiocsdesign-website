@@ -29,22 +29,17 @@
   /* Where a flick would come to rest (Apple's exponential-decay projection). */
   const project = (v, d = 0.998) => (v / 1000) * d / (1 - d);
 
-  /* ─── Header + hero parallax ─── */
-  const hdr = $('#hdr'), hero = $('#top'), heroMedia = $('#heroMedia'), heroCopy = $('#heroCopy');
-  let lastY = window.scrollY, ticking = false;
+  /* ─── Hero: the opening words drift up and fade as the page leaves them (the header stays still) ─── */
+  const hero = $('#top'), heroCopy = $('#heroCopy');
+  let ticking = false;
   function onScroll() {
-    if (ticking) return; ticking = true;
+    if (ticking || reduce) return; ticking = true;
     requestAnimationFrame(() => {
       ticking = false;
       const y = window.scrollY, h = hero.offsetHeight;
-      hdr.classList.toggle('is-solid', y > h - 90);
-      const dy = y - lastY; lastY = y;
-      if (y > h && dy > 6 && !hdr.contains(document.activeElement)) hdr.classList.add('is-tucked');
-      else if (dy < -6 || y <= h) hdr.classList.remove('is-tucked');
-      if (!reduce && y < h * 1.2) {
-        heroMedia.style.transform = 'translate3d(0,' + (y * 0.32).toFixed(1) + 'px,0)';
-        heroCopy.style.transform = 'translate3d(0,' + (y * 0.12).toFixed(1) + 'px,0)';
-        heroCopy.style.opacity = (1 - clamp(y / (h * 0.65), 0, 1)).toFixed(3);
+      if (y < h * 1.2) {
+        heroCopy.style.transform = 'translate3d(0,' + (y * -0.12).toFixed(1) + 'px,0)';
+        heroCopy.style.opacity = (1 - clamp(y / (h * 0.6), 0, 1)).toFixed(3);
       }
     });
   }

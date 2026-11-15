@@ -12,19 +12,19 @@
 <meta property="og:url" content="https://www.studiocsdesign.com/">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/img/favicon.png">
-<link rel="preload" href="assets/fonts/cormorant-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/cormorant-300i-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/hero-poster.jpg" as="image">
-<link rel="stylesheet" href="site.css?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/img/bg-plaster-1280.webp" as="image" media="(max-width: 1280px)">
+<link rel="preload" href="assets/img/bg-plaster-2400.webp" as="image" media="(min-width: 1281px)">
+<link rel="stylesheet" href="site.css?v=3">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
 <header class="hdr" id="hdr">
   <a class="hdr-brand" href="#top" aria-label="Cybelle Sampaio Studio — home">
-    <img class="logo logo-light" src="assets/img/logo.png" alt="" width="636" height="160">
-    <img class="logo logo-dark" src="assets/img/logo.png" alt="Cybelle Sampaio Studio" width="636" height="160">
+    <img class="logo" src="assets/img/logo.png" alt="Cybelle Sampaio Studio" width="636" height="160">
   </a>
   <nav class="hdr-nav" aria-label="Main">
     <a class="wide-only" href="#work">Work</a>
@@ -32,21 +32,33 @@
     <a href="#begin">Contact</a>
     <a href="https://platform.studiocsdesign.com/Studio%20Platform.dc.html" target="_blank" rel="noopener">Client login</a>
   </nav>
+  <div class="hdr-social wide-only">
+    <div class="social" aria-label="Follow the studio">
+      <!-- Placeholders: replace each href with the studio's real profile link -->
+      <a href="#" data-social="instagram" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" class="dot"/></svg></a>
+      <a href="#" data-social="pinterest" aria-label="Pinterest" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M10.6 20.2l1.9-8.1M12.5 12.1c-.6-2.4.9-4.4 2.8-4.1 2 .3 2.4 2.9 1.2 5-1 1.7-3 2.2-4 .9"/></svg></a>
+      <a href="#" data-social="youtube" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="5.8" width="18.4" height="12.4" rx="3.6"/><path d="M10.4 9.4v5.2l4.4-2.6z" class="fill"/></svg></a>
+      <a href="mailto:contact@studiocsdesign.com" data-social="email" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M3.8 6.6l8.2 6.2 8.2-6.2"/></svg></a>
+    </div>
+  </div>
 </header>
 
 <main>
   <section id="top" class="hero">
-    <div class="hero-media" id="heroMedia">
-      <video class="hero-video" src="assets/video/hero.mp4" poster="assets/img/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
-    </div>
-    <div class="hero-scrim"></div>
     <div class="hero-copy" id="heroCopy">
+      <!-- Placeholder: the opening text goes here (eyebrow, two short lines, one closing line) -->
+      <p class="hero-eyebrow"><span>Interior Decoration &nbsp;&middot;&nbsp; Orange County</span></p>
       <h1 class="hero-title">
-        <span class="line"><span>A home that lives</span></span>
-        <span class="line"><span><em>the way you do.</em></span></span>
+        <span class="line"><span>Your opening line</span></span>
+        <span class="line"><span><em>will live here.</em></span></span>
       </h1>
+      <p class="hero-sub"><span>A short sentence to introduce the studio, placeholder text for now.</span></p>
     </div>
-    <a class="hero-cue" href="#manifesto" aria-label="Scroll down"><span></span></a>
+    <a class="hero-cue" href="#manifesto" aria-label="Scroll down">
+      <span class="cue-label">Scroll</span>
+      <span class="cue-line"></span>
+      <svg class="cue-head" viewBox="0 0 14 8" aria-hidden="true"><path d="M1 1l6 6 6-6"/></svg>
+    </a>
   </section>
 
   <section id="manifesto" class="manifesto">
@@ -111,9 +123,16 @@
       <a href="tel:+13146409048">(314) 640-9048</a>
       <span>© 2026 Cybelle Sampaio Studio</span>
     </div>
+    <div class="social" aria-label="Follow the studio">
+    <!-- Placeholders: replace each href with the studio's real profile link -->
+    <a href="#" data-social="instagram" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" class="dot"/></svg></a>
+    <a href="#" data-social="pinterest" aria-label="Pinterest" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M10.6 20.2l1.9-8.1M12.5 12.1c-.6-2.4.9-4.4 2.8-4.1 2 .3 2.4 2.9 1.2 5-1 1.7-3 2.2-4 .9"/></svg></a>
+    <a href="#" data-social="youtube" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="5.8" width="18.4" height="12.4" rx="3.6"/><path d="M10.4 9.4v5.2l4.4-2.6z" class="fill"/></svg></a>
+    <a href="mailto:contact@studiocsdesign.com" data-social="email" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M3.8 6.6l8.2 6.2 8.2-6.2"/></svg></a>
+    </div>
   </div>
 </footer>
 
-<script src="site.js?v=2" defer></script>
+<script src="site.js?v=3" defer></script>
 </body>
 </html>
