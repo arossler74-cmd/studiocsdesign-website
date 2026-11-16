@@ -251,8 +251,8 @@ h1, h2, p, figure { margin: 0; }
 .cd-word {
   position: absolute; z-index: 4; left: 26px; bottom: 20px; max-width: calc(100% - 52px);
   font-family: 'Biro Script Plus', 'BiroScriptPlus', 'Nothing You Could Do', cursive; font-weight: 400;
-  font-size: clamp(38px, 4.4vw, 66px); line-height: 1.2; color: #fbf8f3; white-space: nowrap;
-  text-shadow: 0 2px 22px rgba(30, 24, 18, .45), 0 1px 3px rgba(30, 24, 18, .3);
+  font-size: clamp(38px, 4.4vw, 66px); line-height: 1.2; color: #3d3935; white-space: nowrap;
+  text-shadow: 0 0 18px rgba(250, 246, 240, .7), 0 0 4px rgba(250, 246, 240, .5);
   transform: rotate(-4deg); transform-origin: left bottom;
   opacity: 0; clip-path: inset(-30% 100% -30% -8%);
   transition: opacity .35s ease, clip-path .35s ease;

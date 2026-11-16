@@ -126,7 +126,7 @@
     { alt: 'Bedroom with grasscloth wall and walnut console', title: 'Primary Bedroom', text: '' },
     { alt: 'Open dining and living room under sculptural brass chandeliers', title: 'Dining & Living Room', text: '' }
   ];
-  const N = SLIDES.length, SECS = 3.8;
+  const N = SLIDES.length, SECS = 5;
   const reel = $('#reel'), slidesEl = $('#reelSlides'), fillEl = $('#reelFill');
   const capEl = $('#reelCap'), capTitle = $('#reelTitle'), capText = $('#reelText');
   const layers = SLIDES.map(({ alt }, i) => {
@@ -232,8 +232,9 @@
   }
   $('#reelNext').addEventListener('click', () => { const n = (logical() + 1) % N; load(n); go(n, 1, 0.6); load((n + 1) % N); });
   $('#reelPrev').addEventListener('click', () => { const n = (logical() - 1 + N) % N; load(n); go(n, -1, 0.6); });
-  reel.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { hovering = true; clearTimeout(timer); } });
-  reel.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hovering = false; schedule(); } });
+  const reelBtns = $('.reel-btns');
+  reelBtns.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { hovering = true; clearTimeout(timer); } });
+  reelBtns.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hovering = false; schedule(); } });
   document.addEventListener('visibilitychange', schedule);
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(es => {
@@ -244,7 +245,8 @@
   } else { inView = true; load(0); schedule(); }
   load(0);
   ui(0);
-  window.__reelSchedule = schedule;
+  let kicked = false;
+  window.__reelSchedule = first => { if (first && !kicked && !T) { kicked = true; kenBurns(layers[idx], 1); } schedule(); };
 
   /* Drag: 10px hysteresis, then the crossfade tracks the finger 1:1. Release projects momentum. */
   reel.addEventListener('pointerdown', e => {
@@ -308,7 +310,7 @@
   ];
   const cdStage = $('#cdStage');
   if (cdStage) {
-    const src = (n, k) => 'assets/process/p' + n + '-' + k + '.webp';
+    const src = (n, k) => 'assets/process/p' + n + '-' + k + '.webp?v=2';
     const img = (cls, s, alt) => { const i = new Image(); i.className = cls; i.decoding = 'async'; i.alt = alt || ''; i.dataset.src = s; return i; };
     const pairs = PAIRS.map((p, k) => {
       const n = k + 1, el = document.createElement('div');
@@ -397,7 +399,7 @@
         const open = e > 0.97;
         if (open !== wasOpen) {
           wasOpen = open;
-          if (open) { delete reelEl.dataset.closed; window.__reelSchedule && window.__reelSchedule(); }
+          if (open) { delete reelEl.dataset.closed; window.__reelSchedule && window.__reelSchedule(true); }
           else reelEl.dataset.closed = '1';
         }
       } });
