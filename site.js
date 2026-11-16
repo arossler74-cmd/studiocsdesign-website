@@ -115,26 +115,22 @@
      Each slide is a layer. A transition T fades a candidate layer in over a base layer while both
      drift a little in the direction of travel. Progress p is driven by a spring (autoplay, buttons)
      or 1:1 by the finger (drag) — the same value either way, so either can take over mid-flight. */
-  /* One entry per photo, in order (assets/img/slides/01...10). title and text show over the photo;
+  /* One entry per photo, in order (assets/img/slides/01...06). title and text show over the photo;
      leave either as '' to hide it. alt describes the photo for screen readers. */
   const SLIDES = [
     { alt: 'Family room with oak joinery and a low sculptural sofa', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
     { alt: 'Dining room with linen drapery and cane-back chairs', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
     { alt: 'Primary bedroom in warm walnut and cream', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
     { alt: 'Covered terrace beside the pool', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Oak media wall with lit display shelving', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
     { alt: 'Banquette dining nook opening onto the garden', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Bedroom with grasscloth wall and walnut console', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Family room seen from the garden doors', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Dining room under timber beams', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Breakfast nook with tulips and garden light', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' }
+    { alt: 'Bedroom with grasscloth wall and walnut console', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' }
   ];
   const N = SLIDES.length, SECS = 3.8;
   const reel = $('#reel'), slidesEl = $('#reelSlides'), fillEl = $('#reelFill');
   const capEl = $('#reelCap'), capTitle = $('#reelTitle'), capText = $('#reelText');
   const layers = SLIDES.map(({ alt }, i) => {
     const n = pad(i + 1), el = document.createElement('div');
-    el.className = 'slide'; el.style.backgroundImage = 'url(assets/img/slides/' + n + '-lqip.jpg)';
+    el.className = 'slide'; el.style.backgroundImage = 'url(assets/img/slides/' + n + '-lqip.jpg?v=2)';
     el.setAttribute('role', 'group'); el.setAttribute('aria-roledescription', 'slide'); el.setAttribute('aria-label', (i + 1) + ' of ' + N);
     const img = document.createElement('img');
     img.alt = alt; img.draggable = false; img.decoding = 'async'; img.sizes = '100vw';
@@ -144,8 +140,8 @@
   function load(i) {
     const L = layers[i];
     if (!L.p) {
-      L.img.srcset = 'assets/img/slides/' + L.n + '-1280.webp 1280w, assets/img/slides/' + L.n + '-2400.webp 2400w';
-      L.img.src = 'assets/img/slides/' + L.n + '-1280.webp';
+      L.img.srcset = 'assets/img/slides/' + L.n + '-1280.webp?v=2 1280w, assets/img/slides/' + L.n + '-2400.webp?v=2 2400w';
+      L.img.src = 'assets/img/slides/' + L.n + '-1280.webp?v=2';
       const done = () => L.img.classList.add('is-ready');
       L.p = (L.img.decode ? L.img.decode() : new Promise((res, rej) => { L.img.onload = res; L.img.onerror = rej; })).then(done, done);
     }
