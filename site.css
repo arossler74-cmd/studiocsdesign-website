@@ -87,9 +87,43 @@ h1, h2, p, figure { margin: 0; }
 @media (max-width: 719px) {
   .wide-only, .hdr-nav a.wide-only { display: none; }
   .hdr { grid-template-columns: auto 1fr; }
-  .hdr-nav { justify-self: end; letter-spacing: .2em; gap: 18px; font-size: 10.5px; }
+  .hdr-nav { display: none; }
   .hdr-brand { height: 30px; }
 }
+/* ─── Phone menu: two lines that turn into a cross; a sheet of the same plaster wall ─── */
+.hdr-menu { display: none; justify-self: end; position: relative; width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; background: none; color: var(--n-800); cursor: pointer; }
+.hdr-menu i { position: absolute; left: 11px; right: 11px; height: 1.2px; border-radius: 1px; background: currentColor; transition: transform .45s var(--out); }
+.hdr-menu i:nth-child(1) { top: 18px; }
+.hdr-menu i:nth-child(2) { top: 25px; }
+.hdr-menu:active { transform: scale(.94); }
+.menu-open .hdr-menu i:nth-child(1) { transform: translate3d(0, 3.5px, 0) rotate(45deg); }
+.menu-open .hdr-menu i:nth-child(2) { transform: translate3d(0, -3.5px, 0) rotate(-45deg); }
+.menu-open .hdr-brand { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
+@media (max-width: 719px) { .hdr-menu { display: block; } }
+.menu {
+  position: fixed; inset: 0; z-index: 1990; display: flex; flex-direction: column; justify-content: space-between;
+  padding: calc(110px + env(safe-area-inset-top)) var(--gutter) calc(34px + env(safe-area-inset-bottom));
+  background: linear-gradient(rgba(255, 252, 246, .2), rgba(255, 252, 246, .2)), var(--bg) url(assets/img/bg-plaster-1280.webp) center / cover no-repeat;
+  opacity: 0; transition: opacity .25s ease;
+}
+.menu.is-open { opacity: 1; transition: opacity .4s ease; }
+.menu-nav { display: flex; flex-direction: column; gap: 6px; }
+.menu-nav a {
+  display: block; padding: 8px 0; font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 11vw, 52px); line-height: 1.1; letter-spacing: -.015em; color: var(--text);
+  opacity: 0; transform: translate3d(0, 18px, 0); transition: opacity .2s ease, transform .2s ease;
+}
+.menu.is-open .menu-nav a { opacity: 1; transform: none; transition: opacity .6s ease, transform .8s var(--out); }
+.menu.is-open .menu-nav a:nth-child(1) { transition-delay: .06s; }
+.menu.is-open .menu-nav a:nth-child(2) { transition-delay: .12s; }
+.menu.is-open .menu-nav a:nth-child(3) { transition-delay: .18s; }
+.menu.is-open .menu-nav a:nth-child(4) { transition-delay: .24s; }
+.menu-nav a:active { opacity: .6; }
+.menu-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; opacity: 0; transition: opacity .2s ease; }
+.menu.is-open .menu-foot { opacity: 1; transition: opacity .6s ease .3s; }
+.menu-foot p { font-size: 11px; line-height: 1.8; letter-spacing: .2em; text-transform: uppercase; color: var(--n-700); }
+.menu-social { margin-left: -12px; }
+html.menu-open, html.menu-open body { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .menu-nav a { transform: none !important; } }
 
 .skip { position: absolute; left: 16px; top: -60px; z-index: 3000; padding: 10px 16px; border-radius: 6px; background: var(--text); color: #fff; font-size: 13px; transition: top .2s var(--out); }
 .skip:focus { top: 12px; }

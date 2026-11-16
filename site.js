@@ -52,6 +52,25 @@
   window.addEventListener('resize', onScroll);
   onScroll();
 
+  /* ─── Phone menu ─── */
+  const menuBtn = $('#menuBtn'), menu = $('#menu');
+  if (menuBtn && menu) {
+    menu.querySelector('.menu-social').innerHTML = $('.hdr-social .social').innerHTML;
+    let closing = 0;
+    const setOpen = open => {
+      clearTimeout(closing);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.documentElement.classList.toggle('menu-open', open);
+      if (open) { menu.hidden = false; void menu.offsetWidth; menu.classList.add('is-open'); menu.querySelector('a').focus({ preventScroll: true }); }
+      else { menu.classList.remove('is-open'); closing = setTimeout(() => { menu.hidden = true; }, 260); }
+    };
+    menuBtn.addEventListener('click', () => setOpen(menuBtn.getAttribute('aria-expanded') !== 'true'));
+    menu.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') { setOpen(false); menuBtn.focus(); } });
+    window.matchMedia('(max-width: 719px)').addEventListener('change', e => { if (!e.matches) setOpen(false); });
+  }
+
   /* ─── Word-by-word headlines + scroll reveals ─── */
   document.querySelectorAll('[data-words], [data-scrub]').forEach(el => {
     let i = 0;
@@ -148,9 +167,16 @@
     }
     return L.p;
   }
+  const narrow = window.matchMedia('(max-width: 719px) and (orientation: portrait)');
   function kenBurns(L, dir) {
     if (reduce || !L.img.animate) return;
     L.kb && L.kb.cancel();
+    if (narrow.matches) {                      // a slow pan from one side of the room to the other
+      const a = L.i % 2 ? '100%' : '0%', b = L.i % 2 ? '0%' : '100%';
+      L.kb = L.img.animate([{ objectPosition: a + ' 50%', transform: 'scale(1.04)' }, { objectPosition: b + ' 50%', transform: 'scale(1)' }],
+        { duration: SECS * 1000 + 2200, easing: 'cubic-bezier(.45,0,.4,1)', fill: 'forwards' });
+      return;
+    }
     L.kb = L.img.animate(
       [{ transform: 'translate3d(' + (dir * 1.2) + '%,0,0) scale(1.08)' }, { transform: 'translate3d(0,0,0) scale(1)' }],
       { duration: (SECS + 2.5) * 1000, easing: 'cubic-bezier(.25,.6,.3,1)', fill: 'forwards' });
@@ -306,7 +332,7 @@
     { word: 'Timeless', alt: 'Folded silver, then a brushed steel side table' },
     { word: 'Warmth', alt: 'Walnut grain in raking light, then a walnut lounge chair' },
     { word: 'Architectural', alt: 'Branch shadows on stone, then a round stone table' },
-    { word: '', v: 2, alt: 'Light through a glass bowl, then a glass-topped table on a sculpted walnut base' },
+    { word: 'Flow', v: 2, alt: 'Light through a glass bowl, then a glass-topped table on a sculpted walnut base' },
   ];
   const cdStage = $('#cdStage');
   if (cdStage) {
