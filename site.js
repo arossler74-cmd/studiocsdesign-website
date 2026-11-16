@@ -41,8 +41,9 @@
       const r = mark.getBoundingClientRect();
       hdr.classList.toggle('has-brand', r.top + r.height * 0.6 < hdr.offsetHeight || y > h * 0.5);
       if (!reduce && y < h * 1.2) {
-        heroCopy.style.transform = 'translate3d(0,' + (y * -0.12).toFixed(1) + 'px,0)';
-        heroCopy.style.opacity = (1 - clamp(y / (h * 0.55), 0, 1)).toFixed(3);
+        const t = clamp(y / (h * 0.75), 0, 1), e = t * t * (3 - 2 * t);
+        heroCopy.style.transform = 'translate3d(0,' + (y * -0.18).toFixed(1) + 'px,0) scale(' + (1 - 0.1 * e).toFixed(4) + ')';
+        heroCopy.style.opacity = (1 - clamp(y / (h * 0.6), 0, 1)).toFixed(3);
         cue.style.opacity = (1 - clamp(y / (h * 0.2), 0, 1)).toFixed(3);
       }
     });
@@ -52,7 +53,7 @@
   onScroll();
 
   /* ─── Word-by-word headlines + scroll reveals ─── */
-  document.querySelectorAll('[data-words]').forEach(el => {
+  document.querySelectorAll('[data-words], [data-scrub]').forEach(el => {
     let i = 0;
     const walk = node => {
       Array.from(node.childNodes).forEach(ch => {
@@ -222,11 +223,11 @@
   const logical = () => (T ? T.cand.i : idx);
   function schedule() {
     clearTimeout(timer);
-    if (reduce || !inView || hovering || drag || document.hidden) return;
+    if (reduce || !inView || hovering || drag || document.hidden || reel.dataset.closed) return;
     timer = setTimeout(() => {
       const n = (idx + 1) % N;
       load(n).then(() => {
-        if (!inView || hovering || drag || T || document.hidden) return;
+        if (!inView || hovering || drag || T || document.hidden || reel.dataset.closed) return;
         go(n, 1, 0.85);
         load((n + 1) % N);
       });
@@ -246,6 +247,7 @@
   } else { inView = true; load(0); schedule(); }
   load(0);
   ui(0);
+  window.__reelSchedule = schedule;
 
   /* Drag: 10px hysteresis, then the crossfade tracks the finger 1:1. Release projects momentum. */
   reel.addEventListener('pointerdown', e => {
@@ -351,5 +353,83 @@
       new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { load(pairs[0]); o.disconnect(); } }, { rootMargin: '120% 0px' }).observe(cdStage);
     } else { visible = true; sync(); }
     document.addEventListener('visibilitychange', sync);
+  }
+
+  /* ─── Scroll scenes ───
+     Motion tied to the scrollbar, the way apple.com pages move: each scene reads its own progress
+     from the scroll position on every frame (no smoothing, so it never lags the finger) and writes
+     only transform, opacity and clip-path. Positions are measured once and again on resize.
+     Reduced motion: none of this runs; everything sits in its finished state. */
+  if (!reduce) {
+    const smooth = t => t * t * (3 - 2 * t);
+    const root = document.documentElement;
+    const scenes = [];
+    const topOf = el => { let y = 0; for (let n = el; n; n = n.offsetParent) y += n.offsetTop; return y; };
+
+    // 1. The portrait drifts slowly inside its rounded frame (images only; text never parallaxes)
+    const pic = $('.about-photo picture');
+    if (pic) scenes.push({ el: $('.about-photo'), run(p) {
+      pic.style.transform = 'translate3d(0,' + ((0.5 - p) * 10).toFixed(2) + '%,0) scale(1.12)';
+    } });
+
+    // 2. The concept/design card rises a little faster than the words beside it: quiet depth
+    // (the individual `translate` property, so it never fights the entrance's transform)
+    const cdFig = $('#cd');
+    if (cdFig) scenes.push({ el: cdFig, run(p) { cdFig.style.translate = '0 ' + ((0.5 - p) * 70).toFixed(1) + 'px'; } });
+
+    // 3. Projects: the carousel pins, and opens from an inset rounded card to the full screen
+    const stage = $('#reelStage'), reelEl = $('#reel'), reelSlides = $('#reelSlides'), reelUi = $('.reel-ui');
+    if (stage) {
+      stage.classList.add('is-pinned');
+      let wasOpen = null;
+      scenes.push({ el: stage, raw: true, run(_, y, vh, top) {
+        const s0 = top - vh * 0.75, s1 = top + vh * 0.6;          // from 3/4 up the screen to well into the pin
+        const e = smooth(clamp((y - s0) / (s1 - s0), 0, 1)), k = 1 - e;
+        const side = innerWidth < 720 ? 5 : 11;
+        reelEl.style.clipPath = 'inset(' + (k * 12).toFixed(2) + '% ' + (k * side).toFixed(2) + '% ' + (k * 12).toFixed(2) + '% ' + (k * side).toFixed(2) + '% round ' + (k * 24).toFixed(1) + 'px)';
+        reelSlides.style.transform = 'scale(' + (1 + 0.16 * k).toFixed(4) + ')';
+        const u = clamp((e - 0.7) / 0.3, 0, 1);
+        reelUi.style.opacity = u.toFixed(3);
+        reelUi.style.transform = 'translate3d(0,' + ((1 - u) * 18).toFixed(1) + 'px,0)';
+        reelUi.style.pointerEvents = u > 0.5 ? '' : 'none';
+        const open = e > 0.97;
+        if (open !== wasOpen) {
+          wasOpen = open;
+          if (open) { delete reelEl.dataset.closed; window.__reelSchedule && window.__reelSchedule(); }
+          else reelEl.dataset.closed = '1';
+        }
+      } });
+    }
+
+    // 4. Contact: the headline lights up word by word as it rises through the screen
+    const scrub = $('[data-scrub]');
+    if (scrub) {
+      const words = [...scrub.querySelectorAll('.w')];
+      scenes.push({ el: scrub, raw: true, run(_, y, vh, top) {
+        const s0 = top - vh * 0.88, s1 = top - vh * 0.42;
+        const p = clamp((y - s0) / (s1 - s0), 0, 1) * (words.length + 1);
+        words.forEach((w, i) => { w.style.opacity = (0.14 + 0.86 * clamp(p - i, 0, 1)).toFixed(3); });
+      } });
+    }
+
+    function measure() {
+      root.style.setProperty('--hdr-h', $('#hdr').offsetHeight + 'px');
+      scenes.forEach(sc => { sc.top = topOf(sc.el); sc.h = sc.el.offsetHeight; });
+      frame();
+    }
+    let queued = false;
+    function frame() {
+      queued = false;
+      const y = window.scrollY, vh = window.innerHeight;
+      scenes.forEach(sc => {
+        if (y + vh < sc.top - vh * 0.5 || y > sc.top + sc.h + vh * 0.5) return;   // far off screen: skip
+        sc.run(clamp((y + vh - sc.top) / (vh + sc.h), 0, 1), y, vh, sc.top, sc.h);
+      });
+    }
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(frame); } }, { passive: true });
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    if ('ResizeObserver' in window) new ResizeObserver(measure).observe(document.body);
+    measure();
   }
 })();

@@ -188,13 +188,15 @@ h1, h2, p, figure { margin: 0; }
   .reel-cap-title { font-size: 22px; }
   .reel-cap-text { font-size: 13px; }
 }
-/* entrance: the frame opens from an inset card to full bleed while the photo settles from a slight
-   zoom; the caption and controls follow once the frame is open */
-.js [data-reveal="frame"] { opacity: 1; transform: none; clip-path: inset(10% 7% 0 7% round 18px); transition: clip-path 1.6s var(--out); }
-.js [data-reveal="frame"] .reel-slides { transform: scale(1.14); transition: transform 2.6s var(--out); }
-.js [data-reveal="frame"] .reel-ui { opacity: 0; transform: translate3d(0, 18px, 0); transition: opacity .9s ease .85s, transform 1.2s var(--out) .85s; }
-.js [data-reveal="frame"].is-in { clip-path: inset(0 0 0 0 round 0); }
-.js [data-reveal="frame"].is-in .reel-slides, .js [data-reveal="frame"].is-in .reel-ui { opacity: 1; transform: none; }
+/* ─── Scroll-linked motion (site.js, "Scroll scenes"). The page moves with the scrollbar itself:
+   no lag, no hijacking; only transform, opacity and clip-path change. ─── */
+/* Projects: the carousel holds on screen while it opens from an inset card to full bleed */
+.reel-stage.is-pinned { height: calc(100vh + 95vh); height: calc(100svh + 95svh); }
+.reel-stage.is-pinned .reel-wrap { position: sticky; top: var(--hdr-h, 0px); }
+.reel-stage.is-pinned .reel { height: calc(100vh - var(--hdr-h, 0px)); height: calc(100svh - var(--hdr-h, 0px)); }
+.reel-stage.is-pinned .reel-slides { will-change: transform; }
+/* the portrait drifts inside its frame; the picture is a touch larger than the frame to allow it */
+.about-photo picture { display: block; width: 100%; height: 100%; }
 
 /* ─── About ─── */
 .about { max-width: 1280px; margin: 0 auto; padding: clamp(64px, 10vh, 120px) var(--gutter) 0; }
@@ -280,8 +282,6 @@ h1, h2, p, figure { margin: 0; }
   .js [data-reveal], .js [data-words] .w { transform: none !important; filter: none !important; transition: opacity .6s ease !important; }
   .js [data-reveal="mask"] { clip-path: none; transform: none !important; }
   .js [data-reveal="mask"] img { transform: none; }
-  .js [data-reveal="frame"] { clip-path: none; }
-  .js [data-reveal="frame"] .reel-slides, .js [data-reveal="frame"] .reel-ui { transform: none !important; }
 }
 
 /* ─── Hover: only where there is a real pointer, so a tap never leaves a stuck hover ─── */
