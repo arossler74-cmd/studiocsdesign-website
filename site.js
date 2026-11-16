@@ -275,11 +275,11 @@
     if (e.key === 'ArrowLeft') $('#reelPrev').click();
   });
 
-  /* ─── Process: concept → drawing → design, looping ───
-     Each pair: its concept arrives (each by its own shape), the drawing is swept over it, then the
-     finished design develops out of the drawing while the concept stays as a small card. CSS does
+  /* ─── Process: concept → design, looping ───
+     Each pair: its concept arrives (each by its own shape), then the finished design develops out
+     of it while the concept stays as a small card. CSS does
      the motion; this only advances the classes. It runs only while on screen and the tab is visible.
-     To add a pair, add p<N>-concept|drawing|design.webp in assets/process and a line here. */
+     To add a pair, add p<N>-concept|design.webp in assets/process and a line here. */
   const PAIRS = [
     { alt: 'Smoke over linen, then a linen lounge chair on curved bronze legs' },
     { alt: 'A curving plaster staircase, then a serpentine sofa' },
@@ -287,18 +287,16 @@
     { alt: 'Walnut grain in raking light, then a walnut lounge chair' },
     { alt: 'Branch shadows on stone, then a round stone table' },
   ];
-  const cdStage = $('#cdStage'), cdSteps = [...document.querySelectorAll('#cdSteps li')], cdCount = $('#cdCount');
+  const cdStage = $('#cdStage');
   if (cdStage) {
     const src = (n, k) => 'assets/process/p' + n + '-' + k + '.webp';
     const img = (cls, s, alt) => { const i = new Image(); i.className = cls; i.decoding = 'async'; i.alt = alt || ''; i.dataset.src = s; return i; };
     const pairs = PAIRS.map((p, k) => {
       const n = k + 1, el = document.createElement('div');
       el.className = 'cd-pair'; el.dataset.v = String(k % 5);
-      const drawing = document.createElement('div'); drawing.className = 'cd-l cd-drawing';
-      drawing.appendChild(img('', src(n, 'drawing')));
       const thumb = document.createElement('div'); thumb.className = 'cd-thumb';
       thumb.appendChild(img('', src(n, 'concept')));
-      el.append(img('cd-l cd-concept', src(n, 'concept'), p.alt), drawing, img('cd-l cd-design', src(n, 'design')), thumb);
+      el.append(img('cd-l cd-concept', src(n, 'concept'), p.alt), img('cd-l cd-design', src(n, 'design')), thumb);
       cdStage.appendChild(el);
       return el;
     });
@@ -306,8 +304,7 @@
       if (!i.src) i.src = i.dataset.src;
       return i.decode ? i.decode().catch(() => {}) : Promise.resolve();
     }));
-    const T = reduce ? { drawing: 3200, design: 6400, next: 10000 } : { drawing: 2600, design: 5200, next: 8600 };
-    const steps = s => cdSteps.forEach((li, k) => li.classList.toggle('is-on', k === s));
+    const T = reduce ? { design: 4000, next: 9000 } : { design: 3400, next: 7600 };
     let cur = -1, timers = [], running = false, visible = false;
     const clear = () => { timers.forEach(clearTimeout); timers = []; };
     const at = (ms, fn) => timers.push(setTimeout(fn, ms));
@@ -320,10 +317,8 @@
         if (prev && prev !== el) { prev.classList.remove('is-on'); prev.classList.add('is-out'); }
         el.className = 'cd-pair'; void el.offsetWidth;          // restart its transitions from the start state
         el.classList.add('is-on'); cur = k;
-        cdCount.textContent = pad(k + 1) + ' / ' + pad(pairs.length); steps(0);
         at(1600, () => { if (prev && prev !== el) prev.className = 'cd-pair'; });
-        at(T.drawing, () => { el.classList.add('is-drawing'); steps(1); });
-        at(T.design, () => { el.classList.add('is-design'); steps(2); });
+        at(T.design, () => el.classList.add('is-design'));
         at(T.next, () => show((k + 1) % pairs.length));
       });
     }

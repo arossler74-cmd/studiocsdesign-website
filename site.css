@@ -189,7 +189,7 @@ h1, h2, p, figure { margin: 0; }
 .about-copy .lead { font-size: 16.5px; line-height: 1.9; color: var(--n-800); text-wrap: pretty; }
 .about-copy .aside { font-size: 15px; line-height: 1.8; color: var(--n-700); }
 
-/* ─── Process: concept → drawing → design ─── */
+/* ─── Process: concept → design ─── */
 .process { max-width: 1280px; margin: 0 auto; padding: clamp(120px, 18vh, 220px) var(--gutter) 0; }
 .process-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(44px, 7vw, 120px); align-items: center; }
 .process-copy { display: flex; flex-direction: column; gap: 26px; max-width: 500px; }
@@ -205,8 +205,6 @@ h1, h2, p, figure { margin: 0; }
 .cd-pair.is-on { z-index: 2; }
 .cd-pair.is-out { z-index: 1; }
 .cd-l { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.cd-drawing { background: var(--paper); }
-.cd-drawing img { width: 100%; height: 100%; object-fit: cover; }
 /* 1. the concept arrives (each pair by its own shape) and drifts slowly */
 .cd-concept { transform: scale(1.08); transition: clip-path 1.5s var(--inout), transform 9s cubic-bezier(.2, .6, .3, 1); }
 .cd-pair[data-v="0"] .cd-concept { clip-path: inset(100% 0 0 0); }
@@ -217,12 +215,7 @@ h1, h2, p, figure { margin: 0; }
 .cd-pair.is-on .cd-concept, .cd-pair.is-out .cd-concept { transform: scale(1); }
 .cd-pair.is-on[data-v="1"] .cd-concept, .cd-pair.is-out[data-v="1"] .cd-concept { clip-path: circle(75% at 50% 55%); }
 .cd-pair.is-on:not([data-v="1"]) .cd-concept, .cd-pair.is-out:not([data-v="1"]) .cd-concept { clip-path: inset(0 0 0 0); }
-/* 2. the drawing is laid over it, swept in like a pen across paper */
-.cd-drawing { clip-path: inset(0 100% 0 0); transition: clip-path 1.9s cubic-bezier(.65, .05, .36, 1); }
-.cd-drawing img { transform: scale(1.03); transition: transform 3s var(--out); }
-.cd-pair.is-drawing .cd-drawing { clip-path: inset(0 0 0 0); }
-.cd-pair.is-drawing .cd-drawing img { transform: none; }
-/* 3. the design develops out of the drawing: a soft focus pull, as a photograph appears */
+/* 2. the design develops out of the concept: a soft focus pull, as a photograph appears */
 .cd-design { opacity: 0; filter: blur(10px); transform: scale(1.04); transition: opacity 1.6s ease, filter 1.6s var(--out), transform 4s var(--out); }
 .cd-pair.is-design .cd-design { opacity: 1; filter: blur(0); transform: none; }
 /* the concept stays in view as a small card, so the link from one to the other reads */
@@ -231,24 +224,14 @@ h1, h2, p, figure { margin: 0; }
   transition: opacity .7s ease, transform 1s var(--out); }
 .cd-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .cd-pair.is-design .cd-thumb { opacity: 1; transform: none; transition-delay: .7s; }
-/* the steps under the stage */
-.cd-bar { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-top: 20px; }
-.cd-steps { display: flex; gap: clamp(16px, 2.4vw, 30px); margin: 0; padding: 0; list-style: none; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: rgba(110, 106, 101, .55); }
-.cd-steps li { position: relative; padding-bottom: 8px; transition: color .6s ease; }
-.cd-steps li::after { content: ""; position: absolute; left: 0; right: .26em; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 1.2s var(--out); }
-.cd-steps li.is-on { color: var(--n-800); }
-.cd-steps li.is-on::after { transform: scaleX(1); }
-.cd-count { font-size: 11px; letter-spacing: .22em; color: var(--n-700); font-variant-numeric: tabular-nums; }
 @media (max-width: 899px) {
   .process-grid { grid-template-columns: 1fr; }
   .process-copy { max-width: 560px; }
   .cd { justify-self: stretch; max-width: none; }
   .cd-thumb { left: 12px; bottom: 12px; width: 30%; }
-  .cd-steps { gap: 14px; letter-spacing: .18em; font-size: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cd-concept, .cd-drawing, .cd-design, .cd-thumb, .cd-drawing img { transition: opacity .8s ease !important; transform: none !important; filter: none !important; clip-path: none !important; }
-  .cd-drawing { opacity: 0; } .cd-pair.is-drawing .cd-drawing { opacity: 1; }
+  .cd-concept, .cd-design, .cd-thumb { transition: opacity .8s ease !important; transform: none !important; filter: none !important; clip-path: none !important; }
 }
 
 /* ─── Begin ─── */
