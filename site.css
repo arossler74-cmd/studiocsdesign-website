@@ -165,9 +165,10 @@ h1, h2, p, figure { margin: 0; }
   display: flex; align-items: center; justify-content: flex-end; gap: 22px; color: #fff;
 }
 /* a line about each project, over the photo: title in the serif, a short note under it */
-.reel-cap { margin-right: auto; max-width: min(560px, 62%); color: #fff; text-shadow: 0 1px 18px rgba(20, 18, 16, .35); }
+.reel-cap { margin-right: auto; max-width: min(560px, 62%); color: #fff; text-shadow: 0 1px 12px rgba(20, 18, 16, .45); }
 .reel-cap.is-blank { visibility: hidden; }
-.reel-cap-title { font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 2.3vw, 36px); line-height: 1.08; letter-spacing: -.01em; }
+.reel-cap-title { display: flex; align-items: center; gap: 14px; font-size: 11.5px; font-weight: 400; line-height: 1.4; letter-spacing: .3em; text-transform: uppercase; color: rgba(255, 255, 255, .92); }
+.reel-cap-title::before { content: ""; width: 22px; height: 1px; background: currentColor; opacity: .7; }
 .reel-cap-text { margin-top: 8px; font-size: 14px; line-height: 1.55; letter-spacing: .01em; color: rgba(255, 255, 255, .86); }
 .reel-cap-title:empty, .reel-cap-text:empty { display: none; }
 .reel-track { position: relative; width: clamp(80px, 12vw, 160px); height: 2px; border-radius: 2px; background: rgba(255,255,255,.28); overflow: hidden; }
@@ -185,7 +186,7 @@ h1, h2, p, figure { margin: 0; }
   .reel-ui { align-items: flex-end; gap: 14px; }
   .reel-track { display: none; }
   .reel-cap { max-width: none; }
-  .reel-cap-title { font-size: 22px; }
+  .reel-cap-title { font-size: 11px; letter-spacing: .26em; }
   .reel-cap-text { font-size: 13px; }
 }
 /* ─── Scroll-linked motion (site.js, "Scroll scenes"). The page moves with the scrollbar itself:

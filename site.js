@@ -115,15 +115,15 @@
      Each slide is a layer. A transition T fades a candidate layer in over a base layer while both
      drift a little in the direction of travel. Progress p is driven by a spring (autoplay, buttons)
      or 1:1 by the finger (drag) — the same value either way, so either can take over mid-flight. */
-  /* One entry per photo, in order (assets/img/slides/01...06). title and text show over the photo;
-     leave either as '' to hide it. alt describes the photo for screen readers. */
+  /* One entry per photo, in order (assets/img/slides/01...06). title is the room's name, shown small over the photo; text is an
+     optional line under it ('' hides it). alt describes the photo for screen readers. */
   const SLIDES = [
-    { alt: 'Family room with oak joinery and a low sculptural sofa', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Dining room with linen drapery and cane-back chairs', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Primary bedroom in warm walnut and cream', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Covered terrace beside the pool', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Banquette dining nook opening onto the garden', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
-    { alt: 'Bedroom with grasscloth wall and walnut console', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' }
+    { alt: 'Family room with oak joinery and a low sculptural sofa', title: 'Family Room', text: '' },
+    { alt: 'Dining room with linen drapery and cane-back chairs', title: 'Dining Room', text: '' },
+    { alt: 'Primary bedroom in warm walnut and cream', title: 'Primary Bedroom', text: '' },
+    { alt: 'Covered terrace beside the pool', title: 'Terrace', text: '' },
+    { alt: 'Banquette dining nook opening onto the garden', title: 'Breakfast', text: '' },
+    { alt: 'Bedroom with grasscloth wall and walnut console', title: 'Primary Bedroom', text: '' }
   ];
   const N = SLIDES.length, SECS = 3.8;
   const reel = $('#reel'), slidesEl = $('#reelSlides'), fillEl = $('#reelFill');
