@@ -114,22 +114,24 @@
      Each slide is a layer. A transition T fades a candidate layer in over a base layer while both
      drift a little in the direction of travel. Progress p is driven by a spring (autoplay, buttons)
      or 1:1 by the finger (drag) — the same value either way, so either can take over mid-flight. */
+  /* One entry per photo, in order (assets/img/slides/01...10). title and text show over the photo;
+     leave either as '' to hide it. alt describes the photo for screen readers. */
   const SLIDES = [
-    'Family room with oak joinery and a low sculptural sofa',
-    'Dining room with linen drapery and cane-back chairs',
-    'Primary bedroom in warm walnut and cream',
-    'Covered terrace beside the pool',
-    'Oak media wall with lit display shelving',
-    'Banquette dining nook opening onto the garden',
-    'Bedroom with grasscloth wall and walnut console',
-    'Family room seen from the garden doors',
-    'Dining room under timber beams',
-    'Breakfast nook with tulips and garden light'
+    { alt: 'Family room with oak joinery and a low sculptural sofa', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Dining room with linen drapery and cane-back chairs', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Primary bedroom in warm walnut and cream', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Covered terrace beside the pool', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Oak media wall with lit display shelving', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Banquette dining nook opening onto the garden', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Bedroom with grasscloth wall and walnut console', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Family room seen from the garden doors', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Dining room under timber beams', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' },
+    { alt: 'Breakfast nook with tulips and garden light', title: 'Project title', text: 'A short note about this project — the place, the room, the idea.' }
   ];
-  const N = SLIDES.length, SECS = 6;
-  const reel = $('#reel'), slidesEl = $('#reelSlides'), nowEl = $('#reelNow'), fillEl = $('#reelFill');
-  $('#reelAll').textContent = pad(N);
-  const layers = SLIDES.map((alt, i) => {
+  const N = SLIDES.length, SECS = 3.8;
+  const reel = $('#reel'), slidesEl = $('#reelSlides'), fillEl = $('#reelFill');
+  const capEl = $('#reelCap'), capTitle = $('#reelTitle'), capText = $('#reelText');
+  const layers = SLIDES.map(({ alt }, i) => {
     const n = pad(i + 1), el = document.createElement('div');
     el.className = 'slide'; el.style.backgroundImage = 'url(assets/img/slides/' + n + '-lqip.jpg)';
     el.setAttribute('role', 'group'); el.setAttribute('aria-roledescription', 'slide'); el.setAttribute('aria-label', (i + 1) + ' of ' + N);
@@ -158,7 +160,24 @@
   let idx = 0, z = 1, T = null, sp = null, drag = null, timer = 0, inView = false, hovering = false;
   const dirty = new Set();
   layers[0].el.style.opacity = '1'; layers[0].el.style.zIndex = '1';
-  function ui(i) { nowEl.textContent = pad(i + 1); fillEl.style.transform = 'scaleX(' + ((i + 1) / N).toFixed(4) + ')'; }
+  /* the caption leaves fast and the next one rises in after it (exit quicker than enter) */
+  let capShown = -1, capAnim = null;
+  function setCap(i) {
+    capTitle.textContent = SLIDES[i].title || ''; capText.textContent = SLIDES[i].text || '';
+    capEl.classList.toggle('is-blank', !SLIDES[i].title && !SLIDES[i].text);
+  }
+  function caption(i) {
+    if (i === capShown) return;
+    const first = capShown < 0; capShown = i;
+    if (first || reduce || !capEl.animate) { setCap(i); return; }
+    capAnim && capAnim.cancel();
+    capAnim = capEl.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translate3d(0,-6px,0)' }], { duration: 160, easing: 'ease-in', fill: 'forwards' });
+    capAnim.onfinish = () => {
+      setCap(capShown);
+      capAnim = capEl.animate([{ opacity: 0, transform: 'translate3d(0,12px,0)', filter: 'blur(4px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 620, easing: 'cubic-bezier(.23,1,.32,1)', fill: 'forwards' });
+    };
+  }
+  function ui(i) { caption(i); fillEl.style.transform = 'scaleX(' + ((i + 1) / N).toFixed(4) + ')'; }
   function setP(p) {
     T.p = p;
     T.cand.el.style.opacity = p.toFixed(4);
@@ -208,7 +227,7 @@
       const n = (idx + 1) % N;
       load(n).then(() => {
         if (!inView || hovering || drag || T || document.hidden) return;
-        go(n, 1, 1.15);
+        go(n, 1, 0.85);
         load((n + 1) % N);
       });
     }, SECS * 1000);

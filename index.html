@@ -20,7 +20,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="preload" href="assets/img/bg-plaster-1280.webp" as="image" media="(max-width: 1280px)">
 <link rel="preload" href="assets/img/bg-plaster-2400.webp" as="image" media="(min-width: 1281px)">
-<link rel="stylesheet" href="site.css?v=15">
+<link rel="stylesheet" href="site.css?v=16">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -93,20 +93,22 @@
   <section id="projects" class="projects" aria-labelledby="projects-title">
     <header class="projects-head">
       <p class="eyebrow" data-reveal>Projects</p>
-      <h2 id="projects-title" data-words>Curated <em>projects.</em></h2>
+      <h2 id="projects-title" data-words>Curated <em>Projects</em></h2>
     </header>
-    <div class="reel-wrap" aria-roledescription="carousel" aria-label="Selected interiors">
+    <div class="reel-stage" data-group>
+    <div class="reel-wrap" data-reveal="frame" aria-roledescription="carousel" aria-label="Selected interiors">
     <div class="reel" id="reel">
       <div class="reel-slides" id="reelSlides"></div>
       <div class="reel-shade"></div>
       <div class="reel-ui">
-        <div class="reel-count" aria-live="polite"><span id="reelNow">01</span><i></i><span id="reelAll">10</span></div>
+        <div class="reel-cap" id="reelCap" aria-live="polite"><p class="reel-cap-title" id="reelTitle"></p><p class="reel-cap-text" id="reelText"></p></div>
         <div class="reel-track"><div class="reel-fill" id="reelFill"></div></div>
         <div class="reel-btns">
           <button type="button" class="reel-btn" id="reelPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
           <button type="button" class="reel-btn" id="reelNext" aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
         </div>
       </div>
+    </div>
     </div>
     </div>
   </section>
@@ -138,6 +140,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=9" defer></script>
+<script src="site.js?v=10" defer></script>
 </body>
 </html>

@@ -164,8 +164,12 @@ h1, h2, p, figure { margin: 0; }
   position: absolute; z-index: 910; left: var(--gutter); right: var(--gutter); bottom: clamp(26px, 5vh, 48px);
   display: flex; align-items: center; justify-content: flex-end; gap: 22px; color: #fff;
 }
-.reel-count { display: flex; align-items: center; gap: 10px; font-size: 11.5px; font-weight: 400; letter-spacing: .22em; font-variant-numeric: tabular-nums; }
-.reel-count i { width: 18px; height: 1px; background: rgba(255,255,255,.55); }
+/* a line about each project, over the photo: title in the serif, a short note under it */
+.reel-cap { margin-right: auto; max-width: min(560px, 62%); color: #fff; text-shadow: 0 1px 18px rgba(20, 18, 16, .35); }
+.reel-cap.is-blank { visibility: hidden; }
+.reel-cap-title { font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 2.3vw, 36px); line-height: 1.08; letter-spacing: -.01em; }
+.reel-cap-text { margin-top: 8px; font-size: 14px; line-height: 1.55; letter-spacing: .01em; color: rgba(255, 255, 255, .86); }
+.reel-cap-title:empty, .reel-cap-text:empty { display: none; }
 .reel-track { position: relative; width: clamp(80px, 12vw, 160px); height: 2px; border-radius: 2px; background: rgba(255,255,255,.28); overflow: hidden; }
 .reel-fill { position: absolute; inset: 0; background: #fff; transform-origin: left; transform: scaleX(.1); transition: transform 1.2s var(--out); }
 .reel-btns { display: flex; gap: 8px; }
@@ -177,7 +181,20 @@ h1, h2, p, figure { margin: 0; }
 }
 .reel-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
 .reel-btn:active { transform: scale(.95); transition: transform .12s ease-out; }
-@media (max-width: 719px) { .reel-count { display: none; } }
+@media (max-width: 719px) {
+  .reel-ui { align-items: flex-end; gap: 14px; }
+  .reel-track { display: none; }
+  .reel-cap { max-width: none; }
+  .reel-cap-title { font-size: 22px; }
+  .reel-cap-text { font-size: 13px; }
+}
+/* entrance: the frame opens from an inset card to full bleed while the photo settles from a slight
+   zoom; the caption and controls follow once the frame is open */
+.js [data-reveal="frame"] { opacity: 1; transform: none; clip-path: inset(10% 7% 0 7% round 18px); transition: clip-path 1.6s var(--out); }
+.js [data-reveal="frame"] .reel-slides { transform: scale(1.14); transition: transform 2.6s var(--out); }
+.js [data-reveal="frame"] .reel-ui { opacity: 0; transform: translate3d(0, 18px, 0); transition: opacity .9s ease .85s, transform 1.2s var(--out) .85s; }
+.js [data-reveal="frame"].is-in { clip-path: inset(0 0 0 0 round 0); }
+.js [data-reveal="frame"].is-in .reel-slides, .js [data-reveal="frame"].is-in .reel-ui { opacity: 1; transform: none; }
 
 /* ─── About ─── */
 .about { max-width: 1280px; margin: 0 auto; padding: clamp(64px, 10vh, 120px) var(--gutter) 0; }
@@ -219,8 +236,8 @@ h1, h2, p, figure { margin: 0; }
 .cd-design { opacity: 0; filter: blur(10px); transform: scale(1.04); transition: opacity 1.6s ease, filter 1.6s var(--out), transform 4s var(--out); }
 .cd-pair.is-design .cd-design { opacity: 1; filter: blur(0); transform: none; }
 /* the concept stays in view as a small card, so the link from one to the other reads */
-.cd-thumb { position: absolute; left: 18px; bottom: 18px; z-index: 3; width: 26%; aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; border: 3px solid rgba(250, 246, 240, .92);
-  box-shadow: 0 18px 30px -16px rgba(40, 28, 16, .55); opacity: 0; transform: translate3d(0, 14px, 0) scale(.94); transform-origin: left bottom;
+.cd-thumb { position: absolute; right: 16px; top: 16px; z-index: 3; width: 21%; aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; border: 3px solid rgba(250, 246, 240, .92);
+  box-shadow: 0 18px 30px -16px rgba(40, 28, 16, .55); opacity: 0; transform: translate3d(0, -12px, 0) scale(.94); transform-origin: right top;
   transition: opacity .7s ease, transform 1s var(--out); }
 .cd-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .cd-pair.is-design .cd-thumb { opacity: 1; transform: none; transition-delay: .7s; }
@@ -228,7 +245,7 @@ h1, h2, p, figure { margin: 0; }
   .process-grid { grid-template-columns: 1fr; }
   .process-copy { max-width: 560px; }
   .cd { justify-self: stretch; max-width: none; }
-  .cd-thumb { left: 12px; bottom: 12px; width: 30%; }
+  .cd-thumb { right: 12px; top: 12px; width: 25%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cd-concept, .cd-design, .cd-thumb { transition: opacity .8s ease !important; transform: none !important; filter: none !important; clip-path: none !important; }
@@ -263,6 +280,8 @@ h1, h2, p, figure { margin: 0; }
   .js [data-reveal], .js [data-words] .w { transform: none !important; filter: none !important; transition: opacity .6s ease !important; }
   .js [data-reveal="mask"] { clip-path: none; transform: none !important; }
   .js [data-reveal="mask"] img { transform: none; }
+  .js [data-reveal="frame"] { clip-path: none; }
+  .js [data-reveal="frame"] .reel-slides, .js [data-reveal="frame"] .reel-ui { transform: none !important; }
 }
 
 /* ─── Hover: only where there is a real pointer, so a tap never leaves a stuck hover ─── */
