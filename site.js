@@ -386,6 +386,16 @@
     if (stage) {
       stage.classList.add('is-pinned');
       let wasOpen = null;
+      const hintEl = $('#reelHint'), portraitPhone = window.matchMedia('(max-width: 719px) and (orientation: portrait)');
+      let hinted = false;
+      try { hinted = sessionStorage.getItem('cs-turn-hint') === '1'; } catch (_) {}
+      const hideHint = () => hintEl.classList.remove('is-show');
+      function hint() {
+        if (hinted || !hintEl || !portraitPhone.matches) return;
+        hinted = true; try { sessionStorage.setItem('cs-turn-hint', '1'); } catch (_) {}
+        hintEl.classList.add('is-show'); setTimeout(hideHint, 5200);
+      }
+      if (hintEl) { hintEl.addEventListener('click', hideHint); window.addEventListener('orientationchange', hideHint); }
       scenes.push({ el: stage, raw: true, run(_, y, vh, top) {
         const s0 = top - vh * 0.75, s1 = top + vh * 0.6;          // from 3/4 up the screen to well into the pin
         const e = smooth(clamp((y - s0) / (s1 - s0), 0, 1)), k = 1 - e;
@@ -399,7 +409,7 @@
         const open = e > 0.97;
         if (open !== wasOpen) {
           wasOpen = open;
-          if (open) { delete reelEl.dataset.closed; window.__reelSchedule && window.__reelSchedule(true); }
+          if (open) { delete reelEl.dataset.closed; window.__reelSchedule && window.__reelSchedule(true); hint(); }
           else reelEl.dataset.closed = '1';
         }
       } });

@@ -20,7 +20,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
 <link rel="preload" href="assets/img/bg-plaster-1280.webp" as="image" media="(max-width: 1280px)">
 <link rel="preload" href="assets/img/bg-plaster-2400.webp" as="image" media="(min-width: 1281px)">
-<link rel="stylesheet" href="site.css?v=20">
+<link rel="stylesheet" href="site.css?v=21">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -100,6 +100,10 @@
     <div class="reel" id="reel">
       <div class="reel-slides" id="reelSlides"></div>
       <div class="reel-shade"></div>
+      <div class="reel-hint" id="reelHint" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.2"/><path d="M11 18h2"/></svg>
+        <span>Turn your phone for the full view</span>
+      </div>
       <div class="reel-ui">
         <div class="reel-cap" id="reelCap" aria-live="polite"><p class="reel-cap-title" id="reelTitle"></p><p class="reel-cap-text" id="reelText"></p></div>
         <div class="reel-track"><div class="reel-fill" id="reelFill"></div></div>
@@ -140,6 +144,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=15" defer></script>
+<script src="site.js?v=16" defer></script>
 </body>
 </html>
