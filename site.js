@@ -71,6 +71,22 @@
     };
     walk(el);
   });
+  /* The menu marks the section in view (a quiet underline). */
+  const navLinks = [...document.querySelectorAll('.hdr-nav a[href^="#"]')];
+  const navTargets = navLinks.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  if ('IntersectionObserver' in window && navTargets.length) {
+    const seen = new Map();
+    const navIo = new IntersectionObserver(entries => {
+      entries.forEach(e => seen.set(e.target, e.isIntersecting));
+      const cur = navTargets.find(t => seen.get(t));
+      navLinks.forEach(l => l.classList.toggle('is-current', !!cur && l.getAttribute('href') === '#' + cur.id));
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    navTargets.forEach(t => navIo.observe(t));
+  }
+
+  /* Scroll reveals. Elements inside a [data-group] play together, as one choreographed entrance,
+     once a good part of the group is on screen (so a tall photo is not done before it is seen);
+     a delay written on the element itself (--d) is kept. */
   const revealEls = document.querySelectorAll('[data-reveal], [data-words]');
   const showAll = () => revealEls.forEach(el => el.classList.add('is-in'));
   if ('IntersectionObserver' in window) {
@@ -78,11 +94,19 @@
       let i = 0;
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        if (e.target.hasAttribute('data-reveal')) e.target.style.setProperty('--d', (Math.min(i++, 4) * 0.1) + 's');
+        if (e.target.hasAttribute('data-reveal') && !e.target.style.getPropertyValue('--d')) e.target.style.setProperty('--d', (Math.min(i++, 4) * 0.1) + 's');
         e.target.classList.add('is-in'); io.unobserve(e.target);
       });
     }, { rootMargin: '0px 0px -10% 0px' });
-    revealEls.forEach(el => io.observe(el));
+    const groupIo = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('[data-reveal], [data-words]').forEach(el => el.classList.add('is-in'));
+        groupIo.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('[data-group]').forEach(g => groupIo.observe(g));
+    revealEls.forEach(el => { if (!el.closest('[data-group]')) io.observe(el); });
   } else showAll();
   window.addEventListener('beforeprint', showAll);
 
