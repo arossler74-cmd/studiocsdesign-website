@@ -115,7 +115,7 @@
      Each slide is a layer. A transition T fades a candidate layer in over a base layer while both
      drift a little in the direction of travel. Progress p is driven by a spring (autoplay, buttons)
      or 1:1 by the finger (drag) — the same value either way, so either can take over mid-flight. */
-  /* One entry per photo, in order (assets/img/slides/01...06). title is the room's name, shown small over the photo; text is an
+  /* One entry per photo, in order (assets/img/slides/01...07). title is the room's name, shown small over the photo; text is an
      optional line under it ('' hides it). alt describes the photo for screen readers. */
   const SLIDES = [
     { alt: 'Family room with oak joinery and a low sculptural sofa', title: 'Family Room', text: '' },
@@ -123,14 +123,15 @@
     { alt: 'Primary bedroom in warm walnut and cream', title: 'Primary Bedroom', text: '' },
     { alt: 'Covered terrace beside the pool', title: 'Terrace', text: '' },
     { alt: 'Banquette dining nook opening onto the garden', title: 'Breakfast', text: '' },
-    { alt: 'Bedroom with grasscloth wall and walnut console', title: 'Primary Bedroom', text: '' }
+    { alt: 'Bedroom with grasscloth wall and walnut console', title: 'Primary Bedroom', text: '' },
+    { alt: 'Open dining and living room under sculptural brass chandeliers', title: 'Dining & Living Room', text: '' }
   ];
   const N = SLIDES.length, SECS = 3.8;
   const reel = $('#reel'), slidesEl = $('#reelSlides'), fillEl = $('#reelFill');
   const capEl = $('#reelCap'), capTitle = $('#reelTitle'), capText = $('#reelText');
   const layers = SLIDES.map(({ alt }, i) => {
     const n = pad(i + 1), el = document.createElement('div');
-    el.className = 'slide'; el.style.backgroundImage = 'url(assets/img/slides/' + n + '-lqip.jpg?v=2)';
+    el.className = 'slide'; el.style.backgroundImage = 'url(assets/img/slides/' + n + '-lqip.jpg?v=3)';
     el.setAttribute('role', 'group'); el.setAttribute('aria-roledescription', 'slide'); el.setAttribute('aria-label', (i + 1) + ' of ' + N);
     const img = document.createElement('img');
     img.alt = alt; img.draggable = false; img.decoding = 'async'; img.sizes = '100vw';
@@ -140,8 +141,8 @@
   function load(i) {
     const L = layers[i];
     if (!L.p) {
-      L.img.srcset = 'assets/img/slides/' + L.n + '-1280.webp?v=2 1280w, assets/img/slides/' + L.n + '-2400.webp?v=2 2400w';
-      L.img.src = 'assets/img/slides/' + L.n + '-1280.webp?v=2';
+      L.img.srcset = 'assets/img/slides/' + L.n + '-1280.webp?v=3 1280w, assets/img/slides/' + L.n + '-2400.webp?v=3 2400w';
+      L.img.src = 'assets/img/slides/' + L.n + '-1280.webp?v=3';
       const done = () => L.img.classList.add('is-ready');
       L.p = (L.img.decode ? L.img.decode() : new Promise((res, rej) => { L.img.onload = res; L.img.onerror = rej; })).then(done, done);
     }
@@ -298,11 +299,12 @@
      the motion; this only advances the classes. It runs only while on screen and the tab is visible.
      To add a pair, add p<N>-concept|design.webp in assets/process and a line here. */
   const PAIRS = [
-    { alt: 'Smoke over linen, then a linen lounge chair on curved bronze legs' },
-    { alt: 'A curving plaster staircase, then a serpentine sofa' },
-    { alt: 'Folded silver, then a brushed steel side table' },
-    { alt: 'Walnut grain in raking light, then a walnut lounge chair' },
-    { alt: 'Branch shadows on stone, then a round stone table' },
+    { word: 'Texture', alt: 'Smoke over linen, then a linen lounge chair on curved bronze legs' },
+    { word: 'Movement', alt: 'A curving plaster staircase, then a serpentine sofa' },
+    { word: 'Timeless', alt: 'Folded silver, then a brushed steel side table' },
+    { word: 'Warmth', alt: 'Walnut grain in raking light, then a walnut lounge chair' },
+    { word: 'Architectural', alt: 'Branch shadows on stone, then a round stone table' },
+    { word: '', v: 2, alt: 'Light through a glass bowl, then a glass-topped table on a sculpted walnut base' },
   ];
   const cdStage = $('#cdStage');
   if (cdStage) {
@@ -310,10 +312,14 @@
     const img = (cls, s, alt) => { const i = new Image(); i.className = cls; i.decoding = 'async'; i.alt = alt || ''; i.dataset.src = s; return i; };
     const pairs = PAIRS.map((p, k) => {
       const n = k + 1, el = document.createElement('div');
-      el.className = 'cd-pair'; el.dataset.v = String(k % 5);
+      el.className = 'cd-pair'; el.dataset.v = String(p.v != null ? p.v : k % 5);
       const thumb = document.createElement('div'); thumb.className = 'cd-thumb';
       thumb.appendChild(img('', src(n, 'concept')));
       el.append(img('cd-l cd-concept', src(n, 'concept'), p.alt), img('cd-l cd-design', src(n, 'design')), thumb);
+      if (p.word) {                                             // the concept's one word, hand-written over it
+        const w = document.createElement('span'); w.className = 'cd-word'; w.setAttribute('aria-hidden', 'true');
+        w.textContent = p.word; el.appendChild(w);
+      }
       cdStage.appendChild(el);
       return el;
     });
